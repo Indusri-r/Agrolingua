@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgroLingua - AI-Powered Multilingual Farming Assistant</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Telugu:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root { --primary: #10b981; --primary-foreground: #ffffff; }
+        body { font-family: 'Inter', sans-serif; background: linear-gradient(180deg, #1a472a 0%, #2d5a3d 50%, #1a472a 100%); min-height: 100vh; overflow-x: hidden; }
+        
+        /* Dynamic animated background */
+        .bg-farm {
+            position: fixed;
+            inset: 0;
+            background: 
+                url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='50' cy='50' r='2' fill='%23ffffff' opacity='0.1'/%3E%3C/svg%3E"),
+                linear-gradient(180deg, #0f2d1a 0%, #1a4a2e 50%, #0f2d1a 100%);
+            z-index: -1;
+        }
+        
+        /* Animated plant/growth icons floating */
+        .floating-plant {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.15;
+            animation: floatPlant 15s ease-in-out infinite;
+        }
+        .floating-plant:nth-child(1) { left: 5%; top: 20%; animation-delay: 0s; }
+        .floating-plant:nth-child(2) { left: 15%; top: 60%; animation-delay: 2s; }
+        .floating-plant:nth-child(3) { right: 10%; top: 30%; animation-delay: 4s; }
+        .floating-plant:nth-child(4) { right: 20%; top: 70%; animation-delay: 1s; }
+        .floating-plant:nth-child(5) { left: 40%; top: 80%; animation-delay: 3s; }
+        
+        @keyframes floatPlant {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-20px) rotate(5deg); }
+            50% { transform: translateY(-10px) rotate(-3deg); }
+            75% { transform: translateY(-25px) rotate(3deg); }
+        }
+        
+        /* Sun rays animation */
+        .sun-rays {
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(255,200,100,0.3) 0%, transparent 70%);
+            animation: pulseSun 4s ease-in-out infinite;
+        }
+        @keyframes pulseSun {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.2); opacity: 0.8; }
+        }
+        
+        /* Form container styling */
+        .form-container {
+            background: linear-gradient(145deg, rgba(255,255,255,0.97) 0%, rgba(248,250,252,0.99) 100%);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2), 0 0 0 1px rgba(255,255,255,0.5) inset;
+            transition: all 0.5s ease;
+        }
+        
+        /* Form container glow effect */
+        .form-container:hover {
+            box-shadow: 0 25px 80px rgba(16,185,129,0.15), 0 0 0 2px rgba(16,185,129,0.3) inset;
+            transform: translateY(-2px);
+        }
+        
+        /* Input styling */
+        .form-input {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+        .form-input:focus {
+            background: #fff;
+            border-color: #10b981;
+            box-shadow: 0 0 0 4px rgba(16,185,129,0.15);
+            transform: scale(1.01);
+        }
+        
+        /* Section headers */
+        .section-title {
+            border-bottom: 3px solid #10b981;
+            padding-bottom: 8px;
+            position: relative;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 30px;
+            height: 3px;
+            background: linear-gradient(90deg, #10b981, #34d399);
+            border-radius: 2px;
+        }
+        
+        /* Particles */
+        .particles { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+        .particle { position: absolute; width: 8px; height: 8px; background: rgba(255,255,255,0.4); border-radius: 50%; animation: float 10s infinite; }
+        .particle:nth-child(1) { left: 10%; animation-delay: 0s; } .particle:nth-child(2) { left: 25%; animation-delay: 2s; } .particle:nth-child(3) { left: 40%; animation-delay: 4s; } .particle:nth-child(4) { left: 55%; animation-delay: 1s; } .particle:nth-child(5) { left: 70%; animation-delay: 3s; } .particle:nth-child(6) { left: 85%; animation-delay: 5s; }
+        @keyframes float { 0% { transform: translateY(100vh) scale(0); opacity: 0; } 10%, 90% { opacity: 1; } 100% { transform: translateY(-20px) scale(1); opacity: 0; } }
+        
+        .hero-gradient { 
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Button shine effect */
+        .hero-gradient::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shine 3s infinite;
+        }
+        @keyframes shine {
+            0% { left: -100%; }
+            50%, 100% { left: 100%; }
+        }
+        
+        .hero-gradient:hover {
+            background: linear-gradient(135deg, #059669 0%, #047857 100%);
+            box-shadow: 0 10px 40px rgba(16,185,129,0.4);
+            transform: translateY(-2px);
+        }
+        
+        .feature-badge { 
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            background: linear-gradient(145deg, rgba(255,255,255,0.95) 0%, rgba(248,250,252,0.9) 100%);
+        }
+        .feature-badge:hover { 
+            transform: translateY(-5px) scale(1.05); 
+            box-shadow: 0 15px 35px rgba(16,185,129,0.3);
+        }
+        
+        input:focus, select:focus { outline: none; }
+        
+        .result-item { 
+            animation: slideIn 0.6s ease-out forwards; 
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: all 0.4s ease;
+        }
+        .result-item:nth-child(1) { animation-delay: 0.1s; }
+        .result-item:nth-child(2) { animation-delay: 0.2s; }
+        .result-item:nth-child(3) { animation-delay: 0.3s; }
+        .result-item:nth-child(4) { animation-delay: 0.4s; }
+        
+        @keyframes slideIn { 
+            to { opacity: 1; transform: translateX(0); } 
+        }
+        
+        /* Success state - color changes */
+        .success-bg {
+            animation: successPulse 1s ease-out;
+        }
+        @keyframes successPulse {
+            0% { background: linear-gradient(180deg, #1a472a 0%, #2d5a3d 50%, #1a472a 100%); }
+            50% { background: linear-gradient(180deg, #064e3b 0%, #065f46 50%, #064e3b 100%); }
+            100% { background: linear-gradient(180deg, #1a472a 0%, #2d5a3d 50%, #1a472a 100%); }
+        }
+        
+        /* Form submitted state */
+        .form-submitted .form-container {
+            border-color: #10b981;
+            box-shadow: 0 0 30px rgba(16,185,129,0.3), 0 20px 60px rgba(0,0,0,0.2);
+        }
+        
+        /* Upload area animations */
+        #uploadArea {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        #uploadArea:hover {
+            border-color: #10b981;
+            background: rgba(16,185,129,0.05);
+            transform: scale(1.01);
+        }
+        #uploadArea.drag-over {
+            border-color: #10b981;
+            background: rgba(16,185,129,0.1);
+            transform: scale(1.02);
+            border-width: 3px;
+        }
+        
+        /* Image preview animation */
+        #imagePreview {
+            animation: popIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        @keyframes popIn {
+            0% { transform: scale(0); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        /* Loading spinner */
+        .spinner {
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Results appear animation */
+        .results-appear {
+            animation: resultsReveal 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        @keyframes resultsReveal {
+            0% { opacity: 0; transform: translateY(30px) scale(0.95); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        
+        ::-webkit-scrollbar { width: 8px; } 
+        ::-webkit-scrollbar-track { background: #f1f1f1; } 
+        ::-webkit-scrollbar-thumb { background: #10b981; border-radius: 4px; }
+        
+        /* Weather icons wiggle */
+        .weather-icon {
+            animation: wiggle 3s ease-in-out infinite;
+        }
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <div class="bg-farm">
+        <!-- Floating plant decorations -->
+        <span class="floating-plant">🌱</span>
+        <span class="floating-plant">🌿</span>
+        <span class="floating-plant">🌾</span>
+        <span class="floating-plant">🌻</span>
+        <span class="floating-plant">🍃</span>
+        
+        <!-- Sun rays -->
+        <div class="sun-rays"></div>
+        
+        <div class="particles">
+            <div class="particle"></div><div class="particle"></div><div class="particle"></div><div class="particle"></div><div class="particle"></div><div class="particle"></div>
+        </div>
+    </div>
+
+    <header class="relative h-[280px] overflow-hidden">
+        <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" alt="Farmland" class="absolute inset-0 w-full h-full object-cover">
+        <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-transparent"></div>
+        <div class="relative z-10 flex flex-col items-center justify-center h-full text-center px-4">
+            <div class="flex items-center gap-2 mb-2 animate-bounce">
+                <span class="text-4xl">🌾</span>
+                <h1 class="text-4xl md:text-5xl font-bold text-white drop-shadow-lg">AgroLingua</h1>
+            </div>
+            <p class="text-white/90 text-lg" id="heroSubtitle">AI-Powered Multilingual Farming Assistant</p>
+            <div class="mt-4">
+                <select id="langSelect" onchange="changeLanguage(this.value)" class="px-4 py-2 rounded-lg bg-white/90 backdrop-blur-sm border border-white/30 text-gray-800 cursor-pointer font-medium hover:bg-white transition hover:shadow-lg">
+                    <option value="en">English</option>
+                    <option value="hi">हिंदी</option>
+                    <option value="te">తెలుగు</option>
+                </select>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-2xl mx-auto px-4 -mt-16 relative z-10 pb-12" id="mainContent">
+        <div class="form-container rounded-2xl p-6 md:p-8" id="formContainer">
+            <h2 class="text-2xl font-bold text-center text-green-800 mb-6 flex items-center justify-center gap-2">
+                <span class="animate-pulse">📋</span> <span id="formTitle">Farm Analysis Form</span>
+            </h2>
+            
+            <div class="space-y-5">
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2" id="uploadLabel">Upload Plant Image</label>
+                    <div id="uploadArea" onclick="document.getElementById('imageInput').click()" class="border-2 border-dashed border-gray-300 rounded-xl p-6 text-center cursor-pointer transition">
+                        <div id="uploadPrompt">
+                            <svg class="w-10 h-10 mx-auto text-gray-400 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            <p class="text-gray-500" id="uploadPromptText">Click to upload plant image</p>
+                            <p class="text-gray-400 text-xs mt-1" id="uploadSubText">JPG, PNG up to 10MB</p>
+                        </div>
+                        <div id="imagePreviewContainer" class="hidden">
+                            <img id="imagePreview" class="max-h-40 mx-auto rounded-lg" src="" alt="Preview">
+                            <button onclick="event.stopPropagation(); clearImage()" class="text-red-500 text-sm mt-2 hover:underline">Remove</button>
+                        </div>
+                    </div>
+                    <input type="file" id="imageInput" accept="image/*" class="hidden">
+                </div>
+
+                <div class="border-t border-gray-200 pt-5">
+                    <h3 class="text-lg font-semibold text-green-800 mb-4 section-title flex items-center gap-2" id="soilTitle">
+                        <span>🌱</span> <span>Soil Conditions</span>
+                    </h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm text-gray-600 mb-1" id="soilTypeLabel">Soil Type</label>
+                            <select id="soilType" class="form-input w-full px-3 py-2.5 rounded-lg">
+                                <option value="">Select type</option>
+                                <option value="clay">Clay</option>
+                                <option value="sandy">Sandy</option>
+                                <option value="loamy">Loamy</option>
+                                <option value="silty">Silty</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm text-gray-600 mb-1" id="phLabel">pH Level</label>
+                            <input type="number" id="ph" step="0.1" placeholder="6.5" class="form-input w-full px-3 py-2.5 rounded-lg">
+                        </div>
+                        <div>
+                            <label class="block text-sm text-gray-600 mb-1" id="moistureLabel">Moisture (%)</label>
+                            <input type="number" id="moisture" step="0.1" placeholder="50" class="form-input w-full px-3 py-2.5 rounded-lg">
+                        </div>
+                        <div>
+                            <label class="block text-sm text-gray-600 mb-1" id="nutrientsLabel">Nutrients (NPK)</label>
+                            <input type="text" id="nutrients" placeholder="40-20-30" class="form-input w-full px-3 py-2.5 rounded-lg">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border-t border-gray-200 pt-5">
+                    <h3 class="text-lg font-semibold text-blue-800 mb-4 section-title flex items-center gap-2" id="weatherTitle">
+                        <span class="weather-icon">🌤️</span> <span>Weather Conditions</span>
+                    </h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm text-gray-600 mb-1" id="tempLabel">Temperature (°C)</label>
+                            <input type="number" id="temperature" step="0.1" placeholder="25" class="form-input w-full px-3 py-2.5 rounded-lg">
+                        </div>
+                        <div>
+                            <label class="block text-sm text-gray-600 mb-1" id="humidityLabel">Humidity (%)</label>
+                            <input type="number" id="humidity" step="0.1" placeholder="60" class="form-input w-full px-3 py-2.5 rounded-lg">
+                        </div>
+                        <div>
+                            <label class="block text-sm text-gray-600 mb-1" id="rainfallLabel">Rainfall (mm)</label>
+                            <input type="number" id="rainfall" placeholder="5" class="form-input w-full px-3 py-2.5 rounded-lg">
+                        </div>
+                        <div>
+                            <label class="block text-sm text-gray-600 mb-1" id="seasonLabel">Season</label>
+                            <select id="season" class="form-input w-full px-3 py-2.5 rounded-lg">
+                                <option value="">Select season</option>
+                                <option value="kharif">Kharif (Monsoon)</option>
+                                <option value="rabi">Rabi (Winter)</option>
+                                <option value="zaid">Zaid (Summer)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <label class="block text-sm text-gray-600 mb-1" id="voiceLabel">Voice Note (Optional)</label>
+                        <textarea id="voiceNote" rows="2" placeholder="Additional observations..." class="form-input w-full px-3 py-2.5 rounded-lg resize-none"></textarea>
+                    </div>
+                </div>
+
+                <button id="analyzeBtn" onclick="analyzeFarm()" class="w-full hero-gradient text-white font-semibold py-4 px-6 rounded-xl flex items-center justify-center gap-2 transition-all hover:shadow-lg hover:shadow-green-500/40 active:scale-[0.98] disabled:opacity-50 relative">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    <span id="analyzeText">Analyze</span>
+                </button>
+            </div>
+        </div>
+
+        <div id="loadingState" class="hidden mt-6 form-container rounded-2xl p-6 text-center">
+            <div class="w-16 h-16 border-6 border-green-200 border-t-green-500 rounded-full spinner mx-auto mb-4"></div>
+            <p class="text-gray-600 text-lg" id="loadingText">Analyzing your farm data...</p>
+            <div class="mt-4 flex justify-center gap-2">
+                <span class="w-3 h-3 bg-green-500 rounded-full animate-bounce" style="animation-delay: 0s;"></span>
+                <span class="w-3 h-3 bg-green-500 rounded-full animate-bounce" style="animation-delay: 0.1s;"></span>
+                <span class="w-3 h-3 bg-green-500 rounded-full animate-bounce" style="animation-delay: 0.2s;"></span>
+            </div>
+        </div>
+
+        <div id="resultsSection" class="mt-6 hidden results-appear">
+            <div class="form-container rounded-2xl p-6 border-2 border-green-400">
+                <div class="flex items-center gap-2 mb-4">
+                    <span class="text-2xl">✅</span>
+                    <h3 class="text-xl font-semibold text-gray-800" id="resultsTitle">Analysis Results</h3>
+                </div>
+                <div class="space-y-3">
+                    <div class="p-4 bg-gradient-to-r from-red-50 to-red-100 rounded-xl result-item border-l-4 border-red-500">
+                        <p class="text-sm text-red-600 font-medium">🩺 Disease Detection</p>
+                        <p id="diseaseResult" class="text-lg font-bold text-gray-800">-</p>
+                    </div>
+                    <div class="p-4 bg-gradient-to-r from-green-50 to-green-100 rounded-xl result-item border-l-4 border-green-500">
+                        <p class="text-sm text-green-600 font-medium">🌾 Crop Prediction</p>
+                        <p id="cropResult" class="text-lg font-bold text-gray-800">-</p>
+                    </div>
+                    <div class="p-4 bg-gradient-to-r from-blue-50 to-blue-100 rounded-xl result-item border-l-4 border-blue-500">
+                        <p class="text-sm text-blue-600 font-medium">🌱 Soil Health</p>
+                        <p id="soilResult" class="text-lg font-bold text-gray-800">-</p>
+                    </div>
+                    <div class="p-4 bg-gradient-to-r from-purple-50 to-purple-100 rounded-xl result-item border-l-4 border-purple-500">
+                        <p class="text-sm text-purple-600 font-medium mb-2">💡 Recommendations</p>
+                        <ul id="recommendationsList" class="space-y-2 text-sm text-gray-600"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="featureBadges" class="mt-8 grid grid-cols-2 md:grid-cols-4 gap-3">
+            <div class="feature-badge bg-white/90 backdrop-blur p-4 rounded-xl text-center cursor-pointer">
+                <div class="text-green-600 mb-1"><svg class="w-8 h-8 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg></div>
+                <span class="text-xs font-medium text-gray-700" id="badge1">Crop Analysis</span>
+            </div>
+            <div class="feature-badge bg-white/90 backdrop-blur p-4 rounded-xl text-center cursor-pointer">
+                <div class="text-blue-600 mb-1"><svg class="w-8 h-8 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg></div>
+                <span class="text-xs font-medium text-gray-700" id="badge2">Soil Health</span>
+            </div>
+            <div class="feature-badge bg-white/90 backdrop-blur p-4 rounded-xl text-center cursor-pointer">
+                <div class="text-orange-600 mb-1"><svg class="w-8 h-8 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg></div>
+                <span class="text-xs font-medium text-gray-700" id="badge3">Weather</span>
+            </div>
+            <div class="feature-badge bg-white/90 backdrop-blur p-4 rounded-xl text-center cursor-pointer">
+                <div class="text-purple-600 mb-1"><svg class="w-8 h-8 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg></div>
+                <span class="text-xs font-medium text-gray-700" id="badge4">Organic Advice</span>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const translations = {
+            en: {
+                analyze: 'Analyze', analyzing: 'Analyzing...',
+                diseaseDetection: 'Disease Detection', cropPrediction: 'Crop Prediction',
+                soilHealth: 'Soil Health', recommendations: 'Recommendations',
+                noDisease: 'No Disease Detected', healthy: 'Healthy',
+                uploadPrompt: 'Click to upload plant image', uploadSubtext: 'JPG, PNG up to 10MB',
+                takePhoto: 'Take Photo', uploadImage: 'Upload Plant Image',
+                soilConditions: 'Soil Conditions', weatherConditions: 'Weather Conditions',
+                analysisResults: 'Analysis Results', cropAnalysis: 'Crop Analysis',
+                weatherInsights: 'Weather Insights', organicAdvice: 'Organic Advice',
+                soilType: 'Soil Type', phLevel: 'pH Level', moisture: 'Moisture (%)',
+                nutrients: 'Nutrients (NPK)', temperature: 'Temperature (°C)',
+                humidity: 'Humidity (%)', rainfall: 'Rainfall (mm)', season: 'Season',
+                voiceNote: 'Voice Note (Optional)', title: 'Farm Analysis Form',
+                subTitle: 'Farm Analysis', selectType: 'Select type', selectSeason: 'Select season',
+                heroSubtitle: 'AI-Powered Multilingual Farming Assistant',
+                formTitle: 'Farm Analysis Form', loadingText: 'Analyzing...',
+                analyzingText: 'Analyzing your farm data...'
+            },
+            hi: {
+                analyze: 'विश्लेषण करें', analyzing: 'विश्लेषण हो रहा है...',
+                diseaseDetection: 'रोग का पता लगाना', cropPrediction: 'फसल भविष्यवाणी',
+                soilHealth: 'मिट्टी की सेहत', recommendations: 'सिफारिशें',
+                noDisease: 'कोई रोग नहीं मिला', healthy: 'स्वस्थ',
+                uploadPrompt: 'पौधे की छवि अपलोड करें', uploadSubtext: 'JPG, PNG 10MB तक',
+                takePhoto: 'फोटो लें', uploadImage: 'पौधे की छवि अपलोड करें',
+                soilConditions: 'मिट्टी की स्थिति', weatherConditions: 'मौसम की स्थिति',
+                analysisResults: 'विश्लेषण परिणाम', cropAnalysis: 'फसल विश्लेषण',
+                weatherInsights: 'मौसम जानकारी', organicAdvice: 'जैविक सलाह',
+                soilType: 'मिट्टी का प्रकार', phLevel: 'pH स्तर', moisture: 'नमी (%)',
+                nutrients: 'पोषक तत्व (NPK)', temperature: 'तापमान (°C)',
+                humidity: 'आर्द्रता (%)', rainfall: 'वर्षा (mm)', season: 'मौसम',
+                voiceNote: 'वॉइस नोट (वैकल्पिक)', title: 'खेत विश्लेषण फॉर्म',
+                subTitle: 'खेत विश्लेषण', selectType: 'प्रकार चुनें', selectSeason: 'मौसम चुनें',
+                heroSubtitle: 'AI-संचालित बहुभाषी कृषि सहायक',
+                formTitle: 'खेत विश्लेषण फॉर्म', loadingText: 'विश्लेषण हो रहा है...',
+                analyzingText: 'आपके खेत का विश्लेषण हो रहा है...'
+            },
+                                                te: {
+                analyze: 'విశ్'లేషణ చేయండి',
+                analyzing: 'విశ్'లేషణ జరుగుతుంది...',
+                diseaseDetection: 'రోగ గుర్తింపు',
+                cropPrediction: 'పంట ఏబే',
+                soilHealth: 'నేల ఆరోగ్యం',
+                recommendations: 'సిఫార్సులు',
+                noDisease: 'రోగం లేదు',
+                healthy: 'ఆరోగ్యం',
+                uploadPrompt: 'చెట్టు ఫోటో అప్'లోడ్ చేయండి',
+                uploadSubtext: 'JPG, PNG 10MB వరకు',
+                takePhoto: 'ఫోటो ',
+                uploadImage: 'చెట్టు ఫోటో',
+                soilConditions: 'నేల పరిస్థితులు',
+                weatherConditions: ' వాతావరణం',
+                analysisResults: ' విశ్'లేషణ ఫలితాలు',
+                cropAnalysis: ' ',
+                weatherInsights: ' ',
+                organicAdvice: ' ',
+                soilType: ' ',
+                phLevel: 'pH ',
+                moisture: ' ',
+                nutrients: ' ',
+                temperature: ' ',
+                humidity: ' ',
+                rainfall: ' ',
+                season: ' ',
+                voiceNote: ' ',
+                title: ' ',
+                subTitle: ' ',
+                selectType: ' ',
+                selectSeason: ' ',
+                heroSubtitle: 'AI - ',
+                formTitle: ' ',
+                loadingText: ' ',
+                analyzingText: ' '
+            }
+        };
+
+        let currentLang = 'en';
+        
+        function changeLanguage(lang) {
+            currentLang = lang;
+            const t = translations[lang];
+            document.getElementById('analyzeText').textContent = t.analyze;
+            document.getElementById('uploadPromptText').textContent = t.uploadPrompt;
+            document.getElementById('uploadSubText').textContent = t.uploadSubtext;
+            document.getElementById('heroSubtitle').textContent = t.heroSubtitle;
+            document.getElementById('formTitle').textContent = t.formTitle;
+            updateAllLabels(t);
+            localStorage.setItem('agrolinga_lang', lang);
+        }
+
+        function updateAllLabels(t) {
+            document.getElementById('uploadLabel').textContent = t.uploadImage;
+            document.getElementById('soilTitle').innerHTML = '<span>🌱</span> <span>' + t.soilConditions + '</span>';
+            document.getElementById('weatherTitle').innerHTML = '<span>🌤️</span> <span>' + t.weatherConditions + '</span>';
+            document.getElementById('resultsTitle').textContent = t.analysisResults;
+            document.getElementById('badge1').textContent = t.cropAnalysis;
+            document.getElementById('badge2').textContent = t.soilHealth;
+            document.getElementById('badge3').textContent = t.weatherInsights;
+            document.getElementById('badge4').textContent = t.organicAdvice;
+            document.getElementById('soilTypeLabel').textContent = t.soilType;
+            document.getElementById('phLabel').textContent = t.phLevel;
+            document.getElementById('moistureLabel').textContent = t.moisture;
+            document.getElementById('nutrientsLabel').textContent = t.nutrients;
+            document.getElementById('tempLabel').textContent = t.temperature;
+            document.getElementById('humidityLabel').textContent = t.humidity;
+            document.getElementById('rainfallLabel').textContent = t.rainfall;
+            document.getElementById('seasonLabel').textContent = t.season;
+            document.getElementById('voiceLabel').textContent = t.voiceNote;
+            document.getElementById('soilType').options[0].textContent = t.selectType;
+            document.getElementById('season').options[0].textContent = t.selectSeason;
+            document.getElementById('loadingText').textContent = t.analyzingText || t.loadingText;
+        }
+
+        const imageInput = document.getElementById('imageInput');
+        const uploadArea = document.getElementById('uploadArea');
+        
+        imageInput.addEventListener('change', handleImage);
+        
+        // Enhanced drag and drop
+        uploadArea.addEventListener('dragover', (e) => { 
+            e.preventDefault(); 
+            uploadArea.classList.add('drag-over');
+        });
+        uploadArea.addEventListener('dragleave', () => { 
+            uploadArea.classList.remove('drag-over');
+        });
+        uploadArea.addEventListener('drop', (e) => { 
+            e.preventDefault(); 
+            uploadArea.classList.remove('drag-over');
+            if (e.dataTransfer.files[0]) { 
+                imageInput.files = e.dataTransfer.files; 
+                handleImage(); 
+            }
+        });
+
+        function handleImage() {
+            const file = imageInput.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                document.getElementById('imagePreview').src = e.target.result;
+                document.getElementById('uploadPrompt').classList.add('hidden');
+                document.getElementById('imagePreviewContainer').classList.remove('hidden');
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function clearImage() {
+            imageInput.value = '';
+            document.getElementById('uploadPrompt').classList.remove('hidden');
+            document.getElementById('imagePreviewContainer').classList.add('hidden');
+        }
+
+        async function analyzeFarm() {
+            const btn = document.getElementById('analyzeBtn');
+            const analyzeText = document.getElementById('analyzeText');
+            const mainContent = document.getElementById('mainContent');
+            const formContainer = document.getElementById('formContainer');
+            const t = translations[currentLang];
+            
+            // Add success animation to background
+            mainContent.classList.add('success-bg');
+            
+            btn.disabled = true;
+            analyzeText.textContent = t.analyzing;
+            document.getElementById('loadingState').classList.remove('hidden');
+            document.getElementById('resultsSection').classList.add('hidden');
+            
+            // Scroll to loading state
+            document.getElementById('loadingState').scrollIntoView({ behavior: 'smooth' });
+            
+            try {
+                const formData = new FormData();
+                if (imageInput.files[0]) formData.append('image', imageInput.files[0]);
+                formData.append('soil_moisture', document.getElementById('moisture').value || '50');
+                formData.append('temperature', document.getElementById('temperature').value || '25');
+                formData.append('ph_level', document.getElementById('ph').value || '7.0');
+                formData.append('npk_n', '40');
+                formData.append('npk_p', '20');
+                formData.append('npk_k', '30');
+                formData.append('ec', '1.0');
+                formData.append('co2', '400');
+                formData.append('weather', 'normal');
+                formData.append('region', 'general');
+                formData.append('city', '');
+                formData.append('lang', currentLang);
+
+                const response = await fetch('/analyze', { method: 'POST', body: formData });
+                const data = await response.json();
+                
+                if (data.status === 'success') {
+                    // Add form submitted styling
+                    mainContent.classList.add('form-submitted');
+                    displayResults(data, t);
+                } else {
+                    alert(data.error || 'Analysis failed');
+                }
+            } catch (err) {
+                alert('Error: ' + err.message);
+            } finally {
+                btn.disabled = false;
+                analyzeText.textContent = t.analyze;
+                document.getElementById('loadingState').classList.add('hidden');
+                
+                // Remove success background after animation
+                setTimeout(() => {
+                    mainContent.classList.remove('success-bg');
+                }, 1000);
+            }
+        }
+
+        function displayResults(data, t) {
+            document.getElementById('diseaseResult').textContent = data.disease_prediction || t.noDisease;
+            document.getElementById('cropResult').textContent = data.predicted_crop || '-';
+            document.getElementById('soilResult').textContent = 'Moisture: ' + (data.soil_analysis?.moisture || '-') + '%';
+            
+            const recList = document.getElementById('recommendationsList');
+            recList.innerHTML = '';
+            (data.organic_advice || []).slice(0, 4).forEach(advice => {
+                const li = document.createElement('li');
+                li.className = 'flex items-start gap-2';
+                li.innerHTML = '<span class="text-green-500">✓</span> ' + advice;
+                recList.appendChild(li);
+            });
+            
+            document.getElementById('resultsSection').classList.remove('hidden');
+            document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedLang = localStorage.getItem('agrolinga_lang');
+            if (savedLang) {
+                document.getElementById('langSelect').value = savedLang;
+                currentLang = savedLang;
+                changeLanguage(savedLang);
+            }
+        });
+    </script>
+</body>
+</html>

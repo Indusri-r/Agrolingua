@@ -1,0 +1,22 @@
+{
+  "name": "Agrolinga - AI Farming Assistant",
+  "short_name": "Agrolinga",
+  "description": "Offline-capable AI-powered multilingual farming assistant for Indian farmers",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#2E7D32",
+  "theme_color": "#4CAF50",
+  "icons": [
+    {
+      "src": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgdmlld0JveD0iMCAwIDE5MiAxOTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxOTIiIGhlaWdodD0iMTkyIiBmaWxsPSIjMkU3RDMyIi8+CjxwYXRoIGQ9Ik0zMCAxMzBDMzAgMTMwIDQwIDEyMCA1MCAxMjBDNjAgMTIwIDYwIDExMCA2MCAxMTBDNjAgMTEwIDYwIDEwMCA2MCAxMDBMNjYgOTBDNzAgOTAgNzAgOTAgNzAgOTBMMTAwIDkwTDEwMCAxMDBDMTAwIDExMCAxMDMgMTE1IDEwOCAxMjBDMTEzIDEyNCAxMjEgMTMwIDEzMCAxMzBDMTM5IDEzMCAxNTEgMTI0IDE1MSAxMTJDMTUxIDExMiAxNTAgMTEwIDE1MCAxMTBDMTUwIDExMCAxNTEgMTEwIDE1MSAxMTBDMTUxIDExMCAxNTAgMTEwIDE1MCAxMTBMMTUwIDEwMEwxNTAgOTBDMTUwIDkwIDE1MCA5MCAxNTAgOTBMMjE1IDkwTDIxNSA5NUwyMTUgMTAwTDIxNSAxMTBDMjE1IDExNSAyMTAgMTIwIDIwMCAxMjBDMTkwIDEyMCAxODAgMTIwIDE4MCAxMjBDMTgwIDEyMCAxODAgMTMwIDE4MCAxMzBMMjAyIDEzMEwyMDIgMTMwTDIwMiAxNDBMMjAyIDE0MEwyMDIgMTQwTDIwMiAxNDBMNjAgMTQwTDYwIDEzMEw2MCAxMzBMMzAgMTMwWiIgZmlsbD0iI0ZGRkZGRiIvPgo8L3N2Zz4K",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    }
+  ],
+  "categories": ["productivity", "utilities"],
+  "lang": "en-IN",
+  "dir": "ltr",
+  "orientation": "portrait-primary",
+  "prefer_related_applications": false,
+  "scope": "/"
+}

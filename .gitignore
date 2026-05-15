@@ -1,0 +1,11 @@
+venv/
+datasets/
+models/
+uploads/
+__pycache__/
+*.db
+*.jpg
+*.png
+*.h5
+*.pt
+*.pth

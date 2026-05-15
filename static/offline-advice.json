@@ -1,0 +1,23 @@
+{
+  "crops": {
+    "Maize": {
+      "advice": ["Use drip irrigation for optimal water use.", "Apply organic compost 2-3 tons/acre.", "Monitor for fall armyworm regularly."],
+      "market": "₹2200/quintal in Hyderabad Rythu Bazaar"
+    },
+    "Rice": {
+      "advice": ["Maintain 5cm water level during tillering.", "Use neem cake for nematode control.", "Transplant at 25-30 days."],
+      "market": "₹2800/quintal in Warangal Market"
+    },
+    "default": {
+      "advice": ["Keep soil moisture 40-60%.", "Test pH regularly.", "Use organic mulch."],
+      "market": "Check local Rythu Bazaar for current prices."
+    }
+  },
+  "organic_tips": [
+    "Crop rotation prevents soil depletion.",
+    "Companion planting repels pests naturally.",
+    "Vermicompost improves soil structure.",
+    "Neem oil for organic pest control."
+  ],
+  "emergency": "In offline mode, use basic rules: Good moisture + neutral pH = healthy crops."
+}

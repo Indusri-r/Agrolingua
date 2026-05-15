@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgroLingua - AI-Powered Multilingual Farming Assistant</title>
+    <meta name="description" content="AgroLingua: AI-Powered Multilingual Farming Assistant - Real-time soil health, crop suitability, pest detection, weather conditions, and market trends.">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='offline.js') }}"></script>
+</head>
+<body>
+    <header>
+        <h1>AgroLingua - Smart Farming Assistant</h1>
+        <p style="color: #E8F5E9; margin-top: 5px;">AI-Powered Multilingual Farming Assistant | ఐ-శక్తిమత్ బహుభాషా వ్యవసాయ सहायक | एआई-संचालित बहुभाषी कृषि सहायक</p>
+        <div class="language-selector">
+            <label for="lang">{{ translations.language }}:</label>
+            <select id="lang" onchange="changeLanguage(this.value)">
+                <option value="en" {% if lang == 'en' %}selected{% endif %}>English</option>
+                <option value="hi" {% if lang == 'hi' %}selected{% endif %}>हिंदी (Hindi)</option>
+                <option value="te" {% if lang == 'te' %}selected{% endif %}>తెలుగు (Telugu)</option>
+            </select>
+        </div>
+    </header>
+
+    <!-- Offline Status Banner -->
+    <div id="offline-banner" class="offline-banner">
+        📡 {{ translations.offline_mode or 'You are offline - Data will sync when connected!' }}
+    </div>
+
+    <main>
+        <!-- Pest/Disease Detection Section -->
+        <section id="upload-section">
+            <h2>🔬 {{ translations.pest_detection }}</h2>
+            <p>Upload crop images for AI-powered pest and disease detection</p>
+            <form id="upload-form" enctype="multipart/form-data">
+                <input type="hidden" name="lang" value="{{ lang }}">
+                <input type="file" id="file-input" name="file" accept="image/*" required>
+                <button type="button" onclick="uploadImage()">{{ translations.submit }}</button>
+            </form>
+            <div id="upload-loading" style="display: none;">
+                <p>🔍 Analyzing image...</p>
+                <div class="loading-spinner"></div>
+            </div>
+
+        <!-- IoT Sensor Data Section -->
+        <section id="iot-section">
+            <h2>📊 {{ translations.iot_data }}</h2>
+            <p>Real-time soil health monitoring using IoT sensors</p>
+            <div id="sensor-data">
+                <p>{{ translations.soil_moisture }}: <span id="soil-moisture">--</span>%</p>
+                <p>{{ translations.temperature }}: <span id="temperature">--</span>°C</p>
+                <p>{{ translations.ph_level }}: <span id="ph-level">--</span></p>
+                <p>NPK (N): <span id="npk-n">--</span> mg/kg</p>
+                <p>NPK (P): <span id="npk-p">--</span> mg/kg</p>
+                <p>NPK (K): <span id="npk-k">--</span> mg/kg</p>
+                <p>EC: <span id="ec">--</span> mS/cm</p>
+                <p>CO2: <span id="co2">--</span> ppm</p>
+            </div>
+            <button class="refresh-btn" onclick="refreshSensorData()">🔄 Refresh Sensor Data</button>
+        </section>
+
+        <!-- Weather Section -->
+        <section id="weather-section">
+            <h2>🌤️ Weather Conditions & Forecast</h2>
+            <div class="weather-card">
+                <div class="weather-item">
+                    <div class="icon">🌡️</div>
+                    <div class="label">Current Temp</div>
+                    <div class="value" id="current-temp">--°C</div>
+                </div>
+                <div class="weather-item">
+                    <div class="icon">💧</div>
+                    <div class="label">Humidity</div>
+                    <div class="value" id="humidity">--%</div>
+                </div>
+                <div class="weather-item">
+                    <div class="icon">🌧️</div>
+                    <div class="label">Rainfall</div>
+                    <div class="value" id="rainfall">--mm</div>
+                </div>
+                <div class="weather-item">
+                    <div class="icon">💨</div>
+                    <div class="label">Wind Speed</div>
+                    <div class="value" id="wind-speed">--km/h</div>
+                </div>
+                <div class="weather-item">
+                    <div class="icon">☀️</div>
+                    <div class="label">Forecast</div>
+                    <div class="value" id="forecast">--</div>
+                </div>
+            </div>
+            <button class="refresh-btn" onclick="getWeatherData()">🌦️ Get Weather Update</button>
+        </section>
+
+        <!-- Plant Prediction Section -->
+        <section id="plant-prediction-section">
+            <h2>🌱 Crop Suitability Prediction</h2>
+            <p>AI-powered crop recommendation based on soil conditions</p>
+            <div id="plant-prediction-content">
+                <!-- Plant prediction will be loaded here -->
+                <p>Click below to get AI-based crop recommendations</p>
+            </div>
+            <button onclick="predictPlant()">🌾 Predict Best Crops</button>
+        </section>
+
+        <!-- Yield Prediction Section -->
+        <section id="yield-section">
+            <h2>📈 Yield Expectations</h2>
+            <div class="yield-prediction">
+                <p>Expected Yield: <strong id="expected-yield">--</strong> quintals/acre</p>
+                <p>Confidence Level: <strong id="yield-confidence">--</strong>%</p>
+            </div>
+            <button onclick="getYieldPrediction()">📊 Calculate Expected Yield</button>
+        </section>
+
+        <!-- Organic Advisory Module (Prominent) -->
+        <section class="organic-advisory" id="organic-section">
+            <h2>🌿 {{ translations.organic_tips }}</h2>
+            <p><strong>Sustainable & Eco-Friendly Farming Practices</strong></p>
+            <div id="organic-advice-content">
+                <p>Get personalized organic farming recommendations...</p>
+            </div>
+            <button onclick="getOrganicAdvice()">🌱 Get Organic Farming Advice</button>
+        </section>
+
+        <!-- General Farming Advice -->
+        <section id="advice-section">
+            <h2>💡 {{ translations.advice }}</h2>
+            <div id="advice-content">
+                <!-- Advice will be loaded here -->
+            </div>
+            <button onclick="getAdvice()">📋 Get Personalized Advice</button>
+        </section>
+
+        <!-- Market Trends Section -->
+        <section id="market-section">
+            <h2>💰 Market Trends & Prices</h2>
+            <div id="market-content">
+                <div class="market-info">
+                    <h3>🏪 Nearest Markets & Prices</h3>
+                    <p id="market-info-text">Click below to get current market prices</p>
+                </div>
+            </div>
+            <button onclick="getMarketInfo()">📊 Get Market Prices</button>
+        </section>
+
+        <!-- Voice Input Section -->
+        <section id="voice-section">
+            <h2>🎤 {{ translations.voice_input }}</h2>
+            <p>Voice-enabled interface for farmers with low literacy levels</p>
+            <button class="voice-btn" id="voice-btn" onclick="startVoiceInput()">🎙️ Start Voice Input</button>
+            <div id="voice-status" class="voice-status"></div>
+            <div id="voice-result"></div>
+            <div id="voice-commands" class="voice-commands">
+                <p><strong>Try saying:</strong></p>
+                <ul>
+                    <li>"What's the weather?"</li>
+                    <li>"Give me farming advice"</li>
+                    <li>"Predict crop"</li>
+                    <li>"Market prices"</li>
+                </ul>
+            </div>
+        </section>
+
+        {% if error %}
+        <section>
+            <h2>⚠️ Error</h2>
+            <div id="messages" class="error">{{ error }}</div>
+        </section>
+        {% endif %}
+
+        {% if result %}
+        <section>
+            <h2>{{ translations.pest_detection }}</h2>
+            <div id="messages">{{ result }}</div>
+        </section>
+        {% endif %}
+
+        <!-- Disease Detection Result Section (AJAX) -->
+        <section id="disease-result-section" style="display: none;">
+            <h2>🔬 Pest & Disease Detection Results</h2>
+            <div id="disease-result"></div>
+        </section>
+    </main>
+
+    <footer style="text-align: center; padding: 20px; background: #2E7D32; color: white; margin-top: 30px;">
+        <p>🌾 AgroLingua - AI-Powered Multilingual Farming Assistant 🌾</p>
+        <p>Empowering Indian Farmers with AI | भारतीय किसानों को AI से सशक्त बनाना | భారతీ Telugu farmers with AI</p>
+        <p style="font-size: 0.9rem;">Offline-First Architecture | Works in Low Connectivity Areas</p>
+    </footer>
+
+    <script>
+        // Translations will be passed from Flask
+        let translations = {{ translations | tojson }};
+
+        function changeLanguage(lang) {
+            window.location.href = `/?lang=${lang}`;
+        }
+
+        // Offline detection
+        function updateOnlineStatus() {
+            const banner = document.getElementById('offline-banner');
+            if (!navigator.onLine) {
+                banner.classList.add('show');
+            } else {
+                banner.classList.remove('show');
+            }
+        }
+
+        window.addEventListener('online', updateOnlineStatus);
+        window.addEventListener('offline', updateOnlineStatus);
+        updateOnlineStatus();
+
+        async function refreshSensorData() {
+            try {
+                const response = await fetch('/iot-data');
+                const data = await response.json();
+                if (data && data.length >= 10) {
+                    document.getElementById('soil-moisture').textContent = data[2] || '--';
+                    document.getElementById('temperature').textContent = data[3] || '--';
+                    document.getElementById('ph-level').textContent = data[4] || '--';
+                    document.getElementById('npk-n').textContent = data[5] || '--';
+                    document.getElementById('npk-p').textContent = data[6] || '--';
+                    document.getElementById('npk-k').textContent = data[7] || '--';
+                    document.getElementById('ec').textContent = data[8] || '--';
+                    document.getElementById('co2').textContent = data[9] || '--';
+                } else {
+                    setDefaultValues();
+                }
+            } catch (error) {
+                console.error('Error fetching sensor data:', error);
+                setDefaultValues();
+            }
+        }
+
+        function setDefaultValues() {
+            document.getElementById('soil-moisture').textContent = '50';
+            document.getElementById('temperature').textContent = '25';
+            document.getElementById('ph-level').textContent = '7.0';
+            document.getElementById('npk-n').textContent = '40';
+            document.getElementById('npk-p').textContent = '20';
+            document.getElementById('npk-k').textContent = '30';
+            document.getElementById('ec').textContent = '1.0';
+            document.getElementById('co2').textContent = '400';
+        }
+
+        async function getWeatherData() {
+            try {
+                const response = await fetch('/weather');
+                const data = await response.json();
+                document.getElementById('current-temp').textContent = data.temperature + '°C';
+                document.getElementById('humidity').textContent = data.humidity + '%';
+                document.getElementById('rainfall').textContent = data.rainfall + 'mm';
+                document.getElementById('wind-speed').textContent = data.wind_speed + 'km/h';
+                document.getElementById('forecast').textContent = data.forecast;
+            } catch (error) {
+                console.error('Error fetching weather data:', error);
+                // Set mock weather data on error
+                document.getElementById('current-temp').textContent = '28°C';
+                document.getElementById('humidity').textContent = '65%';
+                document.getElementById('rainfall').textContent = '5mm';
+                document.getElementById('wind-speed').textContent = '12km/h';
+                document.getElementById('forecast').textContent = 'Partly Cloudy';
+            }
+        }
+
+        async function predictPlant() {
+            try {
+                const lang = document.getElementById('lang').value;
+                const soilMoisture = document.getElementById('soil-moisture').textContent;
+                const temperature = document.getElementById('temperature').textContent;
+                const phLevel = document.getElementById('ph-level').textContent;
+                const npkN = document.getElementById('npk-n').textContent;
+                const npkP = document.getElementById('npk-p').textContent;
+                const npkK = document.getElementById('npk-k').textContent;
+                const ec = document.getElementById('ec').textContent;
+                const co2 = document.getElementById('co2').textContent;
+
+                document.getElementById('plant-prediction-content').innerHTML = '<p class="loading">🤔 Analyzing soil conditions...</p>';
+
+                const response = await fetch(`/predict-plant?lang=${lang}&soil_moisture=${soilMoisture}&temperature=${temperature}&ph_level=${phLevel}&npk_n=${npkN}&npk_p=${npkP}&npk_k=${npkK}&ec=${ec}&co2=${co2}`);
+                const data = await response.json();
+                document.getElementById('plant-prediction-content').innerHTML = `<p>${data.prediction}</p>`;
+            } catch (error) {
+                console.error('Error predicting plant:', error);
+                document.getElementById('plant-prediction-content').innerHTML = '<p>Error predicting plant. Please try again.</p>';
+            }
+        }
+
+        async function getYieldPrediction() {
+            try {
+                const soilMoisture = document.getElementById('soil-moisture').textContent;
+                const temperature = document.getElementById('temperature').textContent;
+                
+                const response = await fetch(`/yield-prediction?soil_moisture=${soilMoisture}&temperature=${temperature}`);
+                const data = await response.json();
+                
+                document.getElementById('expected-yield').textContent = data.expected_yield;
+                document.getElementById('yield-confidence').textContent = data.confidence;
+            } catch (error) {
+                console.error('Error getting yield prediction:', error);
+                document.getElementById('expected-yield').textContent = '45';
+                document.getElementById('yield-confidence').textContent = '75';
+            }
+        }
+
+        async function getOrganicAdvice() {
+            try {
+                const lang = document.getElementById('lang').value;
+                const soilMoisture = document.getElementById('soil-moisture').textContent;
+                const temperature = document.getElementById('temperature').textContent;
+                const phLevel = document.getElementById('ph-level').textContent;
+
+                document.getElementById('organic-advice-content').innerHTML = '<p class="loading">🌱 Generating organic recommendations...</p>';
+
+                const response = await fetch(`/organic-advice?lang=${lang}&soil_moisture=${soilMoisture}&temperature=${temperature}&ph_level=${phLevel}`);
+                const data = await response.json();
+                
+                let adviceHtml = '<ul>';
+                data.advice.forEach(item => {
+                    adviceHtml += `<li class="organic">${item}</li>`;
+                });
+                adviceHtml += '</ul>';
+                document.getElementById('organic-advice-content').innerHTML = adviceHtml;
+            } catch (error) {
+                console.error('Error getting organic advice:', error);
+                document.getElementById('organic-advice-content').innerHTML = '<p>Error getting organic advice. Please try again.</p>';
+            }
+        }
+
+        async function getAdvice() {
+            try {
+                const lang = document.getElementById('lang').value;
+                const soilMoisture = document.getElementById('soil-moisture').textContent;
+                const temperature = document.getElementById('temperature').textContent;
+                const phLevel = document.getElementById('ph-level').textContent;
+                const npkN = document.getElementById('npk-n').textContent;
+                const npkP = document.getElementById('npk-p').textContent;
+                const npkK = document.getElementById('npk-k').textContent;
+                const ec = document.getElementById('ec').textContent;
+                const co2 = document.getElementById('co2').textContent;
+
+                document.getElementById('advice-content').innerHTML = '<p class="loading">💡 Generating personalized advice...</p>';
+
+                const response = await fetch(`/advice?lang=${lang}&soil_moisture=${soilMoisture}&temperature=${temperature}&ph_level=${phLevel}&npk_n=${npkN}&npk_p=${npkP}&npk_k=${npkK}&ec=${ec}&co2=${co2}&region=telangana&weather=rainy&yield=70&price=80`);
+                const data = await response.json();
+                
+                if (data.audio_url) {
+                    const audio = new Audio(data.audio_url);
+                    audio.play();
+                    document.getElementById('advice-content').innerHTML = '<p>🎧 Playing voice advice...</p>';
+                }
+                
+                if (data.advice_text) {
+                    document.getElementById('advice-content').innerHTML += `<p>${data.advice_text}</p>`;
+                }
+                
+                if (data.market_info) {
+                    document.getElementById('market-info-text').textContent = data.market_info;
+                }
+            } catch (error) {
+                console.error('Error fetching advice:', error);
+                document.getElementById('advice-content').innerHTML = '<p>Error fetching advice. Please try again.</p>';
+            }
+        }
+
+        async function getMarketInfo() {
+            try {
+                const lang = document.getElementById('lang').value;
+                const response = await fetch(`/market-info?lang=${lang}&region=telangana`);
+                const data = await response.json();
+                document.getElementById('market-info-text').textContent = data.market_info;
+            } catch (error) {
+                console.error('Error getting market info:', error);
+            }
+        }
+
+        async function startVoiceInput() {
+            try {
+                const lang = document.getElementById('lang').value;
+                const response = await fetch('/voice-input', { method: 'POST', body: new FormData(document.querySelector('form')) });
+                const data = await response.json();
+                document.getElementById('voice-result').textContent = `Recognized: ${data.text}`;
+            } catch (error) {
+                console.error('Error with voice input:', error);
+                document.getElementById('voice-result').textContent = 'Error with voice input. Please try again.';
+            }
+        }
+
+        // Load initial data
+        window.onload = function() {
+            refreshSensorData();
+            getWeatherData();
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('/static/offline.js')
+                    .then(reg => console.log('Service Worker registered'))
+                    .catch(err => console.log('Service Worker registration failed'));
+            }
+        };
+    </script>
+</body>
+</html>
