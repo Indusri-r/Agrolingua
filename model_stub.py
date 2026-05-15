@@ -44,7 +44,17 @@ def predict_disease_nn(image_path):
     img = kimage.load_img(image_path, target_size=(224, 224))
     arr = kimage.img_to_array(img) / 255.0
     arr = np.expand_dims(arr, 0)
-    preds = _disease_model.predict(arr, verbose=0)
+
+
+    # Some saved models may expect multiple inputs. Try the common single-input path first.
+    try:
+        preds = _disease_model.predict(arr, verbose=0)
+    except Exception:
+        # Fallback: duplicate the same tensor for every model input.
+        if hasattr(_disease_model, 'inputs') and _disease_model.inputs:
+            preds = _disease_model.predict([arr] * len(_disease_model.inputs), verbose=0)
+        else:
+            raise
     idx = np.argmax(preds[0])
     conf = float(preds[0][idx])
     return _class_names[idx], conf
