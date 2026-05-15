@@ -67,20 +67,20 @@ translations = {
         'provide_sensor_data': 'Please refresh sensor data first! Click "Refresh Sensor Data" button.',
         'select_image': 'Please select an image first!',
         'voice_error': 'Voice input error. Please try again.',
-        'processing': 'Processing... Please wait.'
+        'processing': 'Processing... Please wait.',
+
         # new keys for additional services
-        ,
         'provide_crop_type': 'Please provide a crop type for biofertilizer suggestion.',
         'biofertilizer_for': 'Recommended biofertilizers for',
         'no_crop_provided': 'No crop type provided. Enter a crop to get suggestions.',
-        'ask_for_soil_weather': 'Please provide soil and weather data to proceed.'
-        ,
+        'ask_for_soil_weather': 'Please provide soil and weather data to proceed.',
+
         'fungal_disease': 'Potential fungal disease detected (yellow spots). Recommend organic fungicide treatment.',
         'pest_damage': 'Possible pest damage detected (brown spots). Consider neem oil application.',
         'powdery_mildew': 'Powdery mildew detected (white patches). Use sulfur-based fungicide treatment.',
-        'healthy_crop': 'No significant pest or disease issues detected. Crop appears healthy.'
+        'healthy_crop': 'No significant pest or disease issues detected. Crop appears healthy.',
+
         # crop name translations
-        ,
         'rice': 'Rice',
         'wheat': 'Wheat',
         'cotton': 'Cotton',
@@ -90,7 +90,8 @@ translations = {
         'mustard': 'Mustard',
         'onion': 'Onion',
         'tomato': 'Tomato',
-        'potato': 'Potato'
+'potato': 'బంగాళాదుంప',
+
     },
     'hi': {
         'welcome': 'एग्रोलिंगा में आपका स्वागत है',
@@ -150,20 +151,19 @@ translations = {
         'predicted_plant': 'अनुशंसित फसल',
         'no_file_part': 'कोई फाइल भाग नहीं',
         'no_selected_file': 'कोई फाइल नहीं चुनी गई',
-        'invalid_file_type': 'अमान्य फाइल प्रकार'
-        # new translation keys added below
-        ,
+        'invalid_file_type': 'अमान्य फाइल प्रकार',
+
         'provide_crop_type': 'कृपया जैव उर्वरक सुझाव के लिए फसल प्रकार प्रदान करें।',
         'biofertilizer_for': 'के लिए अनुशंसित जैव उर्वरक',
         'no_crop_provided': 'कोई फसल प्रकार प्रदान नहीं किया गया। सुझाव प्राप्त करने के लिए एक फसल दर्ज करें।',
-        'ask_for_soil_weather': 'कृपया आगे बढ़ने के लिए मिट्टी और मौसम डेटा प्रदान करें।'
-        ,
+        'ask_for_soil_weather': 'कृपया आगे बढ़ने के लिए मिट्टी और मौसम डेटा प्रदान करें।',
+
         'fungal_disease': 'संभावित कवक रोग का पता चला (पीले धब्बे)। जैविक कवकनाशक उपचार की सिफारिश की जाती है।',
         'pest_damage': 'संभावित कीट क्षति का पता चला (भूरे धब्बे)। नीम तेल आवेदन पर विचार करें।',
         'powdery_mildew': 'पाउडरी मिल्ड्यू का पता चला (सफेद पैच)। सल्फर-आधारित कवकनाशक उपचार का उपयोग करें।',
-        'healthy_crop': 'कोई महत्वपूर्ण कीट या रोग संबंधी समस्या नहीं मिली। फसल स्वस्थ लगती है।'
+        'healthy_crop': 'कोई महत्वपूर्ण कीट या रोग संबंधी समस्या नहीं मिली। फसल स्वस्थ लगती है।',
+
         # crop name translations
-        ,
         'rice': 'चावल',
         'wheat': 'गेहूं',
         'cotton': 'कपास',
@@ -173,98 +173,109 @@ translations = {
         'mustard': 'सरसों',
         'onion': 'प्याज',
         'tomato': 'टमाटर',
-        'potato': 'आलू'
+        'potato': 'आलू',
     },
     'te': {
-        'welcome': 'అగ్రోలింగాకు స్వాగతం',
-        'upload_image': ' విశ్లేషణకు చిత్రాన్ని అప్‌లోడ్ చేయండి',
-        'iot_data': 'IoT డేటా',
-        'advice': 'వ్యవసాయ సలహ',
-        'voice_input': 'Voice Input',
-        'language': 'భాష',
-        'submit': 'Submit',
-        'soil_moisture': 'మట్టి తేమ',
-        'temperature': 'ఉష్ణోగ్రత',
-        'ph_level': 'pH లెవల్',
-        'organic_tips': 'Organic Farming Tips',
-        'pest_detection': 'తెలుగు',
-        'low_moisture': 'మట్టిలోతేమతక్కువ. మల్చింగ్ ఉపయోగించండి లేదా డ్రిప్ ఇరిగేషన్.',
-        'high_moisture': 'మట్టిలోతేమఎక్కువ. డ్రెయినేజ్‌ను మెరుగుపరచండి.',
-        'low_temp': 'ఉష్ణోగ్రతతక్కువ. పంటలను కవర్‌లతో రక్షించండి.',
-        'high_temp': 'ఉష్ణోగ్రతఎక్కువ. చెట్లకు నీడ ఇవ్వండి.',
-        'acidic_ph': 'pHఆమ్లం. Lime జోడించండి.',
-        'alkaline_ph': 'pHక్షारం. Sulfur ఉపయోగించండి.',
-        'crop_rotation': 'శస్యాసాగు మార్పు ఆచరణ చేయండి.',
-        'companion_planting': 'companion planting ఉపయోగించండి.',
-        'compost': 'కంపోస్ట్‌ను నియమితంగా వర్తింపజేయండి.',
-        'biodiversity': 'bio-diversity ప్రోత్సహించండి.',
-        'rice_advice': 'బియ్యం కోసం flooded conditions తయారు చేయండి.',
-        'wheat_advice': 'wheat కోసం nitrogen fixing crops ఉపయోगించండ.',
-        'general_crop': 'general crops కోసం neem oil ఉపయోগింపజేయండ.',
-        'region_monsoon': 'monsoon patterns గుర్తుంచుకోండ.',
-        'rainy_weather': 'rainy weather: waterlogging కోసం తయారు.',
-        'dry_weather': 'dry weather: irrigation పెంచండ.',
-        'low_yield': 'low yield: soil improvement.',
-        'good_yield': 'good yield: harvest practices optimize.',
-        'high_price': 'high price: storage consider.',
-        'low_price': 'low price: local markets explore.',
-        'inorganic_low_moisture': 'chemical fertilizers ఉపయোগింపజేయండ.',
-        'inorganic_high_moisture': 'drainage chemicals ఉపయోగింపజేయండ.',
-        'inorganic_low_temp': 'growth promoters ఉపయోగिं�జేయండ.',
-        'inorganic_high_temp': 'stress relievers ఉపయోగिं�జేయండ.',
-        'inorganic_acidic_ph': 'chemical lime ఉపయోగिं�జేయండ.',
-        'inorganic_alkaline_ph': 'chemical sulfur ఉపయోগिं�జేయండ.',
-        'chemical_fertilizers': 'chemical NPK fertilizers ఉపయోగिं�జేయండ.',
-        'pesticides': 'chemical pesticides apply cheyyandi.',
-        'irrigation_systems': 'modern irrigation systems implement cheyyandi.',
-        'market_value': 'current market value',
-        'current_market_price': 'current market price',
-        'nearest_markets': 'nearest markets',
-        'offline_mode': 'You are offline - Data sync when connected!',
-        'weather_conditions': 'weather conditions',
-        'yield_prediction': 'yield prediction',
-        'expected_yield': 'expected yield',
-        'confidence': 'confidence',
-        'sustainable_farming': 'sustainable farming practices',
-        'organic_advisory': 'organic advisory module',
-        'crop_suitability': 'crop suitability',
-        'market_trends': 'market trends',
-        'soil_soil_health': 'soil health',
-        'predicted_plant': 'Recommended crop',
-        'no_file_part': 'No file part',
-        'no_selected_file': 'No selected file',
-        'invalid_file_type': 'Invalid file type'
-        # new translation keys added below
-        ,
-        'provide_crop_type': 'biofertilizer suggestion కోసం crop type ఇవ్వండ.',
-        'biofertilizer_for': 'biofertilizers for',
-        'no_crop_provided': 'crop type ఇవ్వబడలేదు. suggestions పొందడానికి crop enter చేయండ.',
-        'ask_for_soil_weather': 'soil and weather data ఇవ్వండ.'
-        ,
-        'fungal_disease': 'possible fungal disease (yellow spots) గుర్తించబడింది. organic fungicide treatment.',
-        'pest_damage': 'possible pest damage (brown spots) గుర్తించబడింది. neem oil application.',
-        'powdery_mildew': 'powdery mildew (white patches) గుర్తించబడింది. sulfur-based fungicide treatment.',
-        'healthy_crop': 'significant pest or disease issues లేవు. crop appears healthy.'
-        # crop name translations
-        ,
-        'rice': 'బియ్యం',
-        'wheat': 'గోధుమ',
-        'cotton': 'పత్తి',
-        'maize': 'మొక్కజొన్న',
-        'groundnut': ' శనగ',
-        'sugarcane': 'చెరుకు',
-        'mustard': 'ఆముదం',
-        'onion': 'ఉల్లిపాయ',
-        'tomato': 'టమాట',
-        'potato': 'బంటాళు'
-    }
+        'welcome': 'అగ్రోలింగా కు స్వాగతం',
+'upload_image': 'విశ్లేషణ కోసం చిత్రాన్ని అప్‌లోడ్ చేయండి',
+'iot_data': 'ఐఓటీ డేటా',
+'advice': 'వ్యవసాయ సలహా',
+'voice_input': 'వాయిస్ ఇన్‌పుట్',
+'language': 'భాష',
+'submit': 'సమర్పించండి',
+'soil_moisture': 'మట్టి తేమ',
+'temperature': 'ఉష్ణోగ్రత',
+'ph_level': 'పీహెచ్ స్థాయి',
+'organic_tips': 'సేంద్రీయ వ్యవసాయ సూచనలు',
+'pest_detection': 'పురుగు గుర్తింపు',
+
+'low_moisture': 'మట్టిలో తేమ తక్కువగా ఉంది. మల్చింగ్ లేదా డ్రిప్ ఇరిగేషన్ ఉపయోగించండి.',
+'high_moisture': 'మట్టిలో తేమ ఎక్కువగా ఉంది. డ్రెయినేజ్‌ను మెరుగుపరచండి.',
+'low_temp': 'ఉష్ణోగ్రత తక్కువగా ఉంది. పంటలను కవర్లతో రక్షించండి.',
+'high_temp': 'ఉష్ణోగ్రత ఎక్కువగా ఉంది. పంటలకు నీడ కల్పించండి.',
+
+'acidic_ph': 'పీహెచ్ స్థాయి ఆమ్ల స్వభావంలో ఉంది. సున్నం ఉపయోగించండి.',
+'alkaline_ph': 'పీహెచ్ స్థాయి క్షార స్వభావంలో ఉంది. సల్ఫర్ ఉపయోగించండి.',
+
+'crop_rotation': 'పంటల మార్పిడి విధానాన్ని అనుసరించండి.',
+'companion_planting': 'సహాయక పంటల సాగును అమలు చేయండి.',
+'compost': 'కంపోస్ట్‌ను నియమితంగా ఉపయోగించండి.',
+'biodiversity': 'జీవ వైవిధ్యాన్ని ప్రోత్సహించండి.',
+
+'rice_advice': 'బియ్యం పంట కోసం నీరు నిల్వ ఉండే పరిస్థితులు కల్పించండి.',
+'wheat_advice': 'గోధుమ పంట కోసం నత్రజని స్థిరపరిచే పంటలను ఉపయోగించండి.',
+'general_crop': 'సాధారణ పంటల కోసం వేప నూనె ఉపయోగించండి.',
+
+'region_monsoon': 'వర్షాకాల పరిస్థితులను గుర్తుంచుకోండి.',
+'rainy_weather': 'వర్షాకాలంలో నీరు నిల్వ కాకుండా జాగ్రత్తలు తీసుకోండి.',
+'dry_weather': 'ఎండాకాలంలో నీటి పారుదల పెంచండి.',
+
+'low_yield': 'తక్కువ దిగుబడి: నేల నాణ్యతను మెరుగుపరచండి.',
+'good_yield': 'మంచి దిగుబడి: కోత విధానాలను మెరుగుపరచండి.',
+
+'high_price': 'ధర ఎక్కువగా ఉంది: నిల్వ చేయడం పరిగణించండి.',
+'low_price': 'ధర తక్కువగా ఉంది: స్థానిక మార్కెట్లను పరిశీలించండి.',
+
+'inorganic_low_moisture': 'రసాయన ఎరువులను ఉపయోగించండి.',
+'inorganic_high_moisture': 'డ్రెయినేజ్ రసాయనాలను ఉపయోగించండి.',
+'inorganic_low_temp': 'వృద్ధి ప్రోత్సాహకాలను ఉపయోగించండి.',
+'inorganic_high_temp': 'స్ట్రెస్ తగ్గించే పదార్థాలను ఉపయోగించండి.',
+
+'inorganic_acidic_ph': 'రసాయన సున్నం ఉపయోగించండి.',
+'inorganic_alkaline_ph': 'రసాయన సల్ఫర్ ఉపయోగించండి.',
+
+'chemical_fertilizers': 'రసాయన NPK ఎరువులను ఉపయోగించండి.',
+'pesticides': 'రసాయన పురుగుమందులను ఉపయోగించండి.',
+'irrigation_systems': 'ఆధునిక నీటి పారుదల వ్యవస్థలను అమలు చేయండి.',
+
+'market_value': 'ప్రస్తుత మార్కెట్ విలువ',
+'current_market_price': 'ప్రస్తుత మార్కెట్ ధర',
+'nearest_markets': 'సమీప మార్కెట్లు',
+
+'offline_mode': 'మీరు ఆఫ్‌లైన్‌లో ఉన్నారు - కనెక్షన్ వచ్చినప్పుడు డేటా సమకాలీకరణ జరుగుతుంది!',
+
+'weather_conditions': 'వాతావరణ పరిస్థితులు',
+'yield_prediction': 'దిగుబడి అంచనా',
+'expected_yield': 'అంచనా దిగుబడి',
+'confidence': 'నమ్మక స్థాయి',
+
+'sustainable_farming': 'స్థిరమైన వ్యవసాయ పద్ధతులు',
+'organic_advisory': 'సేంద్రీయ సలహా విభాగం',
+'crop_suitability': 'పంట అనుకూలత',
+'market_trends': 'మార్కెట్ ధోరణులు',
+'soil_soil_health': 'నేల ఆరోగ్యం',
+
+'predicted_plant': 'సిఫార్సు చేసిన పంట',
+
+'no_file_part': 'ఫైల్ భాగం కనబడలేదు',
+'no_selected_file': 'ఏ ఫైల్ ఎంపిక చేయలేదు',
+'invalid_file_type': 'చెల్లని ఫైల్ రకం',
+
+'provide_crop_type': 'బయోఫర్టిలైజర్ సూచన కోసం పంట రకం ఇవ్వండి.',
+'biofertilizer_for': 'కు అనుకూల బయోఫర్టిలైజర్లు',
+'no_crop_provided': 'పంట రకం ఇవ్వలేదు. సూచనలు పొందడానికి పంట పేరు నమోదు చేయండి.',
+'ask_for_soil_weather': 'నేల మరియు వాతావరణ వివరాలు ఇవ్వండి.',
+
+'fungal_disease': 'శిలీంధ్ర వ్యాధి (పసుపు మచ్చలు) గుర్తించబడింది. సేంద్రీయ ఫంగిసైడ్ ఉపయోగించండి.',
+'pest_damage': 'పురుగు నష్టం (గోధుమ మచ్చలు) గుర్తించబడింది. వేప నూనె పిచికారీ చేయండి.',
+'powdery_mildew': 'పౌడరీ మిల్డ్యూ (తెల్ల మచ్చలు) గుర్తించబడింది. సల్ఫర్ ఆధారిత ఫంగిసైడ్ ఉపయోగించండి.',
+'healthy_crop': 'గణనీయమైన పురుగు లేదా వ్యాధి సమస్యలు లేవు. పంట ఆరోగ్యంగా ఉంది.',
+
+# crop name translations
+'rice': 'బియ్యం',
+'wheat': 'గోధుమ',
+'cotton': 'పత్తి',
+'maize': 'మొక్కజొన్న',
+'groundnut': 'వేరుశెనగ',
+'sugarcane': 'చెరకు',
+'mustard': 'ఆవాలు',
+'onion': 'ఉల్లిపాయ',
+'tomato': 'టమాటా',
+'potato': 'బంగాళాదుంప',
+    },
 }
 
 # --- dynamic advice translation keys -------------------------------------
-# Many of the advice strings used throughout the app were originally hard-coded
-# in English. To ensure full localization (especially for TTS), we define a set
-# of keys mapping to all language variants and merge them into the translations
-# dictionary at startup.
 extra_keys = {
     'practice_intercropping': {
         'en': 'Practice inter-cropping to maximize land use.',
@@ -345,7 +356,7 @@ extra_keys = {
         'en': 'Use wood ash in moderation to balance acidity.',
         'hi': 'अम्लता को संतुलित करने के लिए लकड़ी की राख का प्रयोग करें।',
         'te': 'అమ్లత్వాన్ని సమతుల్యంగా ఉంచడానికి మోస్తరు పరిమాణంలో చెక్క యొక్క బూడిదను ఉపయోగించండి.'
-    }
+    },
 }
 
 # merge dynamic keys into base translations
@@ -358,10 +369,10 @@ def get_translation(key, lang='en'):
     """Get translation for a key in specified language"""
     return translations.get(lang, translations['en']).get(key, key)
 
+
 def text_to_speech(text, lang='en'):
     """Convert text to speech and save as audio file"""
     try:
-        # Ensure the static directory exists before saving audio
         os.makedirs('static', exist_ok=True)
         tts = gTTS(text=text, lang=lang, slow=False)
         filename = f"static/audio_{lang}.mp3"
@@ -371,24 +382,28 @@ def text_to_speech(text, lang='en'):
         print(f"TTS Error: {e}")
         return None
 
+
 def text_to_speech_parallel(text, lang='en'):
     """Convert text to speech in parallel thread"""
+
     import threading
+
     def generate_audio():
         try:
-            # Ensure the static directory exists before saving audio
             os.makedirs('static', exist_ok=True)
             tts = gTTS(text=text, lang=lang, slow=False)
             filename = f"static/audio_{lang}.mp3"
             tts.save(filename)
         except Exception as e:
             print(f"TTS Error: {e}")
+
     thread = threading.Thread(target=generate_audio)
     thread.start()
     thread.join(timeout=10)
     if thread.is_alive():
         return None
     return f"static/audio_{lang}.mp3"
+
 
 def speech_to_text(lang='en'):
     """Convert speech to text"""
@@ -398,15 +413,14 @@ def speech_to_text(lang='en'):
             print("Listening...")
             recognizer.adjust_for_ambient_noise(source, duration=1)
             audio = recognizer.listen(source, timeout=5)
-        
-        # Map language codes for Google Speech Recognition
+
         lang_map = {
             'en': 'en-US',
             'hi': 'hi-IN',
-            'te': 'te-IN'
+            'te': 'te-IN',
         }
         speech_lang = lang_map.get(lang, 'en-US')
-        
+
         text = recognizer.recognize_google(audio, language=speech_lang)
         return text
     except sr.UnknownValueError:
@@ -416,49 +430,40 @@ def speech_to_text(lang='en'):
     except Exception as e:
         return f"Error: {str(e)}"
 
+
 def get_supported_languages():
     """Return list of supported language codes"""
     return ['en', 'hi', 'te']
 
 
 def translate_text(text, lang='en'):
-    """Translate a single English text string into the given language.
-
-    Strategy:
-    - If the given text is itself a translation key present in the target
-      language mapping, return that mapping.
-    - Try to find an English key whose value exactly matches `text` and use
-      that key to lookup the target language.
-    - As a last resort, perform simple substring replacements for any known
-      English phrases found in `text` using the translations dictionary.
-    - If nothing matches, return the original `text` unchanged.
-    """
+    """Translate a single English text string into the given language."""
     if not text:
         return text
 
-    # If text is already a key in the translations for the target language
+    # If the input is a translation key in target language
     lang_map = translations.get(lang, {})
     if text in lang_map:
         return lang_map[text]
 
-    # Try to find an English key by exact value match
+    # Exact match against English values: find the corresponding key
     en_map = translations.get('en', {})
     found_key = None
     for k, v in en_map.items():
         if v == text:
             found_key = k
             break
+
     if found_key:
         return translations.get(lang, en_map).get(found_key, text)
 
-    # Perform simple substring replacements for known phrases
+    # Substring replacement using English phrases found in the text
     translated = text
     for k, v in en_map.items():
         if v and v in translated:
             replacement = translations.get(lang, {}).get(k, v)
             translated = translated.replace(v, replacement)
 
-    # Normalize whitespace in the translated output
     try:
         return translated.strip()
     except Exception:
@@ -466,10 +471,8 @@ def translate_text(text, lang='en'):
 
 
 def translate_list(text_list, lang='en'):
-    """Translate a list of strings into the desired language.
-
-    Returns a new list with each item passed through `translate_text`.
-    """
+    """Translate a list of strings into the desired language."""
     if not text_list:
         return []
     return [translate_text(str(item), lang).strip() for item in text_list]
+
