@@ -1,1 +1,8 @@
-# PlantVillage Dataset Integration - COMPLETE ✅\n\n- ✅ Downloaded/Found PlantVillage dataset (dataset/PlantVillage-Dataset-master/raw/color, 43k+ images, 38 classes)\n- ✅ Trained PlantVillage ResNet50 model (models/disease_model.h5 + class_mapping.json)\n- ✅ model_stub.py loads/uses PlantVillage model for process_image()\n- ✅ Updated app.py /analyze endpoint to use PlantVillage process_image() instead of PlantDoc heuristics\n- ✅ Flask app restarted and running at http://127.0.0.1:5000 (debug mode, auto-reload)\n\n**Now using PlantVillage dataset for disease detection!** Test by uploading plant images to /analyze.
+# TODO - DL-only disease prediction
+
+- [ ] Confirm current disease model loading logic in `model_stub.py`.
+- [ ] Modify `_load_disease_model()` to prefer and load **only** `models/disease_model.keras` for inference.
+- [ ] Ensure fallback heuristics are used only when the DL model truly fails to load.
+- [ ] Re-run a direct `process_image(static/test_img.jpg)` test to confirm `model_used == 'Crop disease model'`.
+- [ ] (Optional) Re-run `/analyze` integration test once server is running.
+

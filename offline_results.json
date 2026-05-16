@@ -1,0 +1,108 @@
+[
+  {
+    "input": {
+      "soil_moisture": "45",
+      "temperature": "28",
+      "ph_level": "6.5",
+      "npk_n": "40",
+      "npk_p": "20",
+      "npk_k": "30",
+      "ec": "1.0",
+      "co2": "400",
+      "region": "telangana",
+      "weather": "normal",
+      "lang": "te"
+    },
+    "predicted_crop": "  Maize",
+    "organic_advice": [
+      "  Biodiversity promote cheyyandi.",
+      "  Companion planting use cheyyandi.",
+      "🌱 Use vermicompost for nutrient-rich organic fertilizer.",
+      "🌱 Apply biofertilizers like Azotobacter and PSB.",
+      "🌱 Practice inter-cropping to maximize land use."
+    ],
+    "personalized_advice": [
+      "Maize is a kharif crop requiring warm weather.",
+      "Maintain row spacing of 60-75cm for better growth.",
+      "Maize requires high nitrogen - apply in split doses.",
+      "  Monsoon patterns observe cheyyandi.",
+      "📍 Prepare for monsoon by clearing drainage channels.",
+      "📍 Use ridge and furrow method for better water management."
+    ],
+    "market_info": "📊   Current market price Maize: ₹1,500-1,900/quintal\n\n🏪   Nearest markets:\n   • Gaddiannaram Market (10 km): ₹2,100/quintal\n   • Kukatpally Market (15 km): ₹2,050/quintal\n   • Warangal Market (150 km): ₹1,980/quintal\n   • Nizamabad Market (170 km): ₹2,000/quintal\n\n💡 Tip: Compare prices from multiple markets before selling!",
+    "combined_text": "  Biodiversity promote cheyyandi.   Companion planting use cheyyandi. 🌱 Use vermicompost for nutrient-rich organic fertilizer. 🌱 Apply biofertilizers like Azotobacter and PSB. 🌱 Practice inter-cropping to maximize land use. Maize is a kharif crop requiring warm weather. Maintain row spacing of 60-75cm for better growth. Maize requires high nitrogen - apply in split doses.   Monsoon patterns observe cheyyandi. 📍 Prepare for monsoon by clearing drainage channels. 📍 Use ridge and furrow method for better water management. 📊   Current market price Maize: ₹1,500-1,900/quintal\n\n🏪   Nearest markets:\n   • Gaddiannaram Market (10 km): ₹2,100/quintal\n   • Kukatpally Market (15 km): ₹2,050/quintal\n   • Warangal Market (150 km): ₹1,980/quintal\n   • Nizamabad Market (170 km): ₹2,000/quintal\n\n💡 Tip: Compare prices from multiple markets before selling!"
+  },
+  {
+    "input": {
+      "soil_moisture": "25",
+      "temperature": "12",
+      "ph_level": "5.8",
+      "npk_n": "10",
+      "npk_p": "5",
+      "npk_k": "10",
+      "ec": "0.8",
+      "co2": "350",
+      "region": "punjab",
+      "weather": "rainy",
+      "lang": "hi"
+    },
+    "predicted_crop": "कपास",
+    "organic_advice": [
+      "मिट्टी की नमी कम है। नमी बनाए रखने के लिए मल्चिंग करें या ड्रिप सिंचाई का उपयोग करें।",
+      "🌱 Use mulching with organic materials to retain soil moisture.",
+      "🌱 Install drip irrigation system for efficient water use.",
+      "तापमान कम है। फसलों को पंक्ति कवर से बचाएं या ठंड सहने वाली किस्में चुनें।",
+      "🌱 Use row covers or polytunnels to protect crops from cold.",
+      "🌱 Plant cold-tolerant varieties like spinach, peas, and lettuce.",
+      "मिट्टी का pH अम्लीय है। बेहतर पोषक उपलब्धता के लिए pH बढ़ाने के लिए चूना जोड़ें।",
+      "🌱 Add agricultural lime or dolomite to raise pH.",
+      "🌱 Use wood ash in moderation to balance acidity.",
+      "मिट्टी की संरचना और उर्वरता में सुधार के लिए नियमित रूप से खाद डालें।",
+      "अपनी फसलों के आसपास देशी प्रजातियों को लगाकर जैव विविधता को प्रोत्साहित करें।",
+      "🌱 Use neem cake as natural pest repellent.",
+      "🌱 Use vermicompost for nutrient-rich organic fertilizer.",
+      "🌱 Practice mulching with crop residues."
+    ],
+    "personalized_advice": [
+      "🌱 Cotton requires warm climate (25-35°C).",
+      "🌱 Avoid water stagnation - cotton is drought tolerant.",
+      "🌱 Use BT cotton seeds for pest resistance.",
+      "📍 Practice laser land leveling for uniform irrigation.",
+      "📍 Use stubble management techniques."
+    ],
+    "market_info": "📊 वर्तमान बाजार मूल्य Cotton: ₹5,000-6,000/quintal\n\n🏪 निकटतम बाजार:\n   • Azadpur Market (500 km): ₹2,300/quintal\n   • Ludhiana Market (550 km): ₹2,250/quintal\n\n💡 Tip: Compare prices from multiple markets before selling!",
+    "combined_text": "मिट्टी की नमी कम है। नमी बनाए रखने के लिए मल्चिंग करें या ड्रिप सिंचाई का उपयोग करें। 🌱 Use mulching with organic materials to retain soil moisture. 🌱 Install drip irrigation system for efficient water use. तापमान कम है। फसलों को पंक्ति कवर से बचाएं या ठंड सहने वाली किस्में चुनें। 🌱 Use row covers or polytunnels to protect crops from cold. 🌱 Plant cold-tolerant varieties like spinach, peas, and lettuce. मिट्टी का pH अम्लीय है। बेहतर पोषक उपलब्धता के लिए pH बढ़ाने के लिए चूना जोड़ें। 🌱 Add agricultural lime or dolomite to raise pH. 🌱 Use wood ash in moderation to balance acidity. मिट्टी की संरचना और उर्वरता में सुधार के लिए नियमित रूप से खाद डालें। अपनी फसलों के आसपास देशी प्रजातियों को लगाकर जैव विविधता को प्रोत्साहित करें। 🌱 Use neem cake as natural pest repellent. 🌱 Use vermicompost for nutrient-rich organic fertilizer. 🌱 Practice mulching with crop residues. 🌱 Cotton requires warm climate (25-35°C). 🌱 Avoid water stagnation - cotton is drought tolerant. 🌱 Use BT cotton seeds for pest resistance. 📍 Practice laser land leveling for uniform irrigation. 📍 Use stubble management techniques. 📊 वर्तमान बाजार मूल्य Cotton: ₹5,000-6,000/quintal\n\n🏪 निकटतम बाजार:\n   • Azadpur Market (500 km): ₹2,300/quintal\n   • Ludhiana Market (550 km): ₹2,250/quintal\n\n💡 Tip: Compare prices from multiple markets before selling!"
+  },
+  {
+    "input": {
+      "soil_moisture": "70",
+      "temperature": "35",
+      "ph_level": "7.2",
+      "npk_n": "60",
+      "npk_p": "30",
+      "npk_k": "50",
+      "ec": "1.2",
+      "co2": "420",
+      "region": "maharashtra",
+      "weather": "dry",
+      "lang": "en"
+    },
+    "predicted_crop": "Sugarcane",
+    "organic_advice": [
+      "Practice crop rotation to maintain soil health and prevent pest buildup.",
+      "Apply compost regularly to improve soil structure and fertility.",
+      "🌱 Use neem cake as natural pest repellent.",
+      "🌱 Apply biofertilizers like Azotobacter and PSB.",
+      "🌱 Use vermicompost for nutrient-rich organic fertilizer."
+    ],
+    "personalized_advice": [
+      "For general crops, monitor for pests regularly and use neem oil as organic pesticide.",
+      "🌱 Monitor crops regularly for pest and disease attack.",
+      "🌱 Use integrated pest management (IPM) techniques.",
+      "Use drip irrigation to combat water scarcity.",
+      "Practice dryland farming techniques."
+    ],
+    "market_info": "📊 Current Market Price Sugarcane: ₹350-400/quintal\n\n🏪 Nearest Markets:\n   • Vashi Market (400 km): ₹2,200/quintal\n   • Pune Market (450 km): ₹2,150/quintal\n\n💡 Tip: Compare prices from multiple markets before selling!",
+    "combined_text": "Practice crop rotation to maintain soil health and prevent pest buildup. Apply compost regularly to improve soil structure and fertility. 🌱 Use neem cake as natural pest repellent. 🌱 Apply biofertilizers like Azotobacter and PSB. 🌱 Use vermicompost for nutrient-rich organic fertilizer. For general crops, monitor for pests regularly and use neem oil as organic pesticide. 🌱 Monitor crops regularly for pest and disease attack. 🌱 Use integrated pest management (IPM) techniques. Use drip irrigation to combat water scarcity. Practice dryland farming techniques. 📊 Current Market Price Sugarcane: ₹350-400/quintal\n\n🏪 Nearest Markets:\n   • Vashi Market (400 km): ₹2,200/quintal\n   • Pune Market (450 km): ₹2,150/quintal\n\n💡 Tip: Compare prices from multiple markets before selling!"
+  }
+]

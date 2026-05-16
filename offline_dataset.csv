@@ -1,0 +1,11 @@
+soil_moisture,temperature,ph_level,npk_n,npk_p,npk_k,ec,co2,region,weather,humidity,wind_speed,rainfall,lang
+45,28,6.5,40,20,30,1.0,400,telangana,normal,65,12,5,te
+25,12,5.8,10,5,10,0.8,350,punjab,rainy,80,8,15,hi
+70,35,7.2,60,30,50,1.2,420,maharashtra,dry,45,15,0,en
+55,22,6.8,35,18,25,0.9,380,gujarat,cloudy,55,10,2,en
+30,18,5.5,20,10,15,0.7,360,karnataka,sunny,40,18,0,te
+65,30,7.0,50,25,45,1.1,410,rajasthan,partly_cloudy,50,14,5,hi
+40,20,6.2,30,15,20,0.85,370,bihar,rainy,85,6,25,en
+60,32,6.9,55,28,40,1.15,415,uttar_pradesh,dry,35,20,0,hi
+50,25,6.6,42,22,32,0.95,395,madhya_pradesh,cloudy,60,11,3,en
+35,15,5.7,15,8,12,0.75,355,punjab,sunny,30,16,0,hi

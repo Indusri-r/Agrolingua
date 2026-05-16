@@ -4,5 +4,5 @@ pillow
 tensorflow
 scikit-learn
 numpy
-gunicorn
 gtts
+gunicorn

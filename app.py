@@ -214,8 +214,25 @@ def predict_plant_route():
         error = get_translation('ask_for_soil_weather', lang)
         return jsonify({'error': error})
 
+    # Debug: show raw + parsed inputs and which model path is used
+    print("[DEBUG] /predict-plant raw args:", {k: request.args.get(k) for k in ['soil_moisture','temperature','ph_level','npk_n','npk_p','npk_k','ec','co2'] if k in request.args})
+    print("[DEBUG] /predict-plant parsed:", {
+        'soil_moisture': soil_moisture,
+        'temperature': temperature,
+        'ph_level': ph_level,
+        'npk_n': npk_n,
+        'npk_p': npk_p,
+        'npk_k': npk_k,
+        'ec': ec,
+        'co2': co2,
+        'lang': lang
+    })
+
     predicted_plant = predict_plant(soil_moisture, temperature, ph_level, npk_n, npk_p, npk_k, ec, co2)
+    print("[DEBUG] /predict-plant predicted_plant:", predicted_plant)
+
     # translate the predicted plant name if we have a translation entry
+
     plant_translation = get_translation(predicted_plant.lower(), lang)
     if plant_translation == predicted_plant.lower():
         # translation not found, fall back to original
@@ -238,7 +255,9 @@ def predict_plant_route():
 
     # also include audio version of the prediction for voice assistance
     audio_file = text_to_speech_parallel(prediction_text, lang)
+    print('[DEBUG] /predict-plant audio_file:', audio_file)
     audio_url = f'/{audio_file}' if audio_file else None
+
     return jsonify({
         'prediction': prediction_text,
         'audio_url': audio_url
@@ -377,14 +396,61 @@ def analyze_farm():
         # and speech we only want the disease summary, not the image metadata.
         # Use the crop disease image model (generic multi-crop dataset).
         disease_result_dict = process_image(filepath, lang)
-        
+
         if disease_result_dict.get('status') == 'success':
-            plant_name = disease_result_dict.get('plant_name', 'Unknown Plant')
-            disease = disease_result_dict.get('disease', 'No Disease Detected')
-            confidence = disease_result_dict.get('confidence', 0)
-            disease_result = f"{plant_name} - {disease} (confidence: {confidence:.1f}%) - Model: Crop Disease"
+
+            plant_name = disease_result_dict.get(
+                'plant_name',
+                'Unknown Plant'
+            )
+
+            disease = disease_result_dict.get(
+                'disease',
+                'No Disease Detected'
+            )
+
+            confidence = disease_result_dict.get(
+                'confidence',
+                0
+            )
+
+            # Fix numeric prediction issue
+            if str(disease).isdigit():
+                disease = "Unknown Disease"
+
+            # Translate plant name
+            translated_plant = get_translation(
+                plant_name.lower(),
+                lang
+            )
+
+            if translated_plant == plant_name.lower():
+                translated_plant = plant_name
+
+            # Translate disease name
+            translated_disease = get_translation(
+                disease.lower(),
+                lang
+            )
+
+            if translated_disease == disease.lower():
+                translated_disease = disease
+
+            # Final output
+            disease_result = (
+                f"{translated_plant} - "
+                f"{translated_disease} "
+                f"({confidence:.1f}%)"
+            )
+
         else:
-            disease_result = disease_result_dict.get('disease', 'Analysis failed')
+
+            disease_result = disease_result_dict.get(
+                'disease',
+                'Analysis failed'
+            )
+        
+      
         
         # 2. VALIDATE AND PROCESS IOT SENSOR DATA
         required_iot = ['soil_moisture', 'temperature', 'ph_level', 'npk_n', 'npk_p', 'npk_k', 'ec', 'co2']
@@ -609,4 +675,4 @@ def dataset_info():
     return jsonify(stats)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=5000, debug=False)
