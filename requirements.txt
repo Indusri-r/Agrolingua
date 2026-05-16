@@ -7,3 +7,4 @@ OpenCV-python-headless==4.13.0.92
 gTTS==2.5.4
 scikit-learn==1.6.1
 pillow==11.1.0
+SpeechRecognition==3.14.0
