@@ -373,14 +373,17 @@ def get_translation(key, lang='en'):
 def text_to_speech(text, lang='en'):
     """Convert text to speech and save as audio file"""
     try:
+        import time
         os.makedirs('static', exist_ok=True)
         tts = gTTS(text=text, lang=lang, slow=False)
-        filename = f"static/audio_{lang}.mp3"
+        ts = int(time.time() * 1000)
+        filename = f"static/audio_{lang}_{ts}.mp3"
         tts.save(filename)
         return filename
     except Exception as e:
         print(f"TTS Error: {e}")
         return None
+
 
 
 def text_to_speech_parallel(text, lang='en'):
@@ -390,19 +393,35 @@ def text_to_speech_parallel(text, lang='en'):
 
     def generate_audio():
         try:
+            import time
             os.makedirs('static', exist_ok=True)
             tts = gTTS(text=text, lang=lang, slow=False)
-            filename = f"static/audio_{lang}.mp3"
+            ts = int(time.time() * 1000)
+            filename = f"static/audio_{lang}_{ts}.mp3"
             tts.save(filename)
         except Exception as e:
             print(f"TTS Error: {e}")
+
 
     thread = threading.Thread(target=generate_audio)
     thread.start()
     thread.join(timeout=10)
     if thread.is_alive():
         return None
-    return f"static/audio_{lang}.mp3"
+
+    # Return the most recently created file for this language
+    # (best-effort; avoids always returning static/audio_{lang}.mp3)
+    static_dir = 'static'
+    candidates = [
+        os.path.join(static_dir, f)
+        for f in os.listdir(static_dir)
+        if f.startswith(f"audio_{lang}_") and f.endswith('.mp3')
+    ]
+    if not candidates:
+        return None
+    latest = max(candidates, key=os.path.getmtime)
+    return latest.replace('\\', '/')
+
 
 
 def speech_to_text(lang='en'):

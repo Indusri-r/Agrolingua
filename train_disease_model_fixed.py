@@ -197,7 +197,7 @@ history = model.fit(
 # EVALUATE MODEL
 # ==========================================
 print("\n========== EVALUATING MODEL ==========\n")
-
+ p
 test_loss, test_accuracy = model.evaluate(
     test_generator
 )

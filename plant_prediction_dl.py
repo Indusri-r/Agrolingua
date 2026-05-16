@@ -18,6 +18,11 @@ def load_crop_model():
     if _crop_model is not None:
         return True
 
+    # Extra debug so we know why/if model load always fails
+    print("[DEBUG] load_crop_model(): checking files:")
+    for p in [MODEL_PATH, SCALER_PATH, LABEL_ENCODER_PATH]:
+        print("[DEBUG]   ", p, "exists=", os.path.exists(p))
+
     try:
         _crop_model = load_model(MODEL_PATH)
         _scaler = joblib.load(SCALER_PATH)
@@ -27,6 +32,7 @@ def load_crop_model():
     except Exception as e:
         print(f"❌ DL model load failed: {e}. Falling back to rules.")
         return False
+
 
 def predict_crop_dl(N, temperature, ph_level, npk_p, npk_k, soil_moisture, ec, co2):
     """
