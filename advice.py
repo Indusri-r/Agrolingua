@@ -79,21 +79,24 @@ def get_personalized_advice(crop_type, region, lang='te'):
     """
     advice = []
 
-    # Crop-specific advice
-    if crop_type.lower() == "rice" or "rice" in crop_type.lower():
+    # Normalize crop label
+    crop_type_norm = (crop_type or "").strip().lower()
+
+    # Crop-specific advice (use exact matches; avoid substring misclassification)
+    if crop_type_norm == "rice":
         advice.append(get_translation('rice_advice', lang))
         advice.append("🌾 Maintain 5-10cm water depth in paddy fields.")
         advice.append("🌾 Use System of Rice Intensification (SRI) method.")
         advice.append("🌾 Apply neem-coated urea for slow nitrogen release.")
-    elif crop_type.lower() == "wheat" or "wheat" in crop_type.lower():
+    elif crop_type_norm == "wheat":
         advice.append(get_translation('wheat_advice', lang))
         advice.append("🌾 Sow wheat at optimal spacing for better yield.")
         advice.append("🌾 Apply nitrogen in split doses - 50% at sowing, 50% at crown root initiation.")
-    elif crop_type.lower() == "cotton" or "cotton" in crop_type.lower():
+    elif crop_type_norm == "cotton":
         advice.append(get_translation('cotton_advice', lang) if 'cotton_advice' in globals() else "🌱 Cotton requires warm climate (25-35°C).")
         advice.append(get_translation('cotton_water_tip', lang) if 'cotton_water_tip' in globals() else "🌱 Avoid water stagnation - cotton is drought tolerant.")
         advice.append(get_translation('cotton_seeds_tip', lang) if 'cotton_seeds_tip' in globals() else "🌱 Use BT cotton seeds for pest resistance.")
-    elif crop_type.lower() == "maize" or "maize" in crop_type.lower():
+    elif crop_type_norm == "maize":
         advice.append("Maize is a kharif crop requiring warm weather.")
         advice.append("Maintain row spacing of 60-75cm for better growth.")
         advice.append("Maize requires high nitrogen - apply in split doses.")
