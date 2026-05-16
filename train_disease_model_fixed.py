@@ -1,173 +1,245 @@
-import argparse
 import os
-import sys
-import numpy as np
-from pathlib import Path
+import json
 import tensorflow as tf
 from tensorflow import keras
-from tensorflow.keras import layers, models
+from tensorflow.keras import layers
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
-import json
-import zipfile
 
-# Force UTF-8 output on Windows consoles to prevent progress bar encoding errors
-if hasattr(sys.stdout, 'reconfigure'):
-    sys.stdout.reconfigure(encoding='utf-8', errors='replace')
-if hasattr(sys.stderr, 'reconfigure'):
-    sys.stderr.reconfigure(encoding='utf-8', errors='replace')
+# ==========================================
+# DATASET PATH
+# ==========================================
+DATASET_DIR = r"C:\Agrolinga\dataset final\agrolingua_synthetic_dataset"
 
-MODEL_SAVE_PATH = 'models/disease_model.h5'
-CLASS_MAPPING_PATH = 'models/class_mapping.json'
+TRAIN_DIR = os.path.join(DATASET_DIR, "train")
+VAL_DIR = os.path.join(DATASET_DIR, "val")
+TEST_DIR = os.path.join(DATASET_DIR, "test")
+
+# ==========================================
+# SETTINGS
+# ==========================================
 IMG_SIZE = (224, 224)
-BATCH_SIZE = 32
-EPOCHS = 5
+BATCH_SIZE = 16
+EPOCHS = 15
 
+MODEL_PATH = "models/disease_model.keras"
+CLASS_MAPPING_PATH = "models/class_mapping.json"
 
-def get_dataset_dir(dataset_root=None):
-    print("Checking crop disease dataset...")
-    candidates = []
-    if dataset_root:
-        candidates.append(Path(dataset_root))
-    candidates.extend([
-        Path("datasets/CropsDisease/Final_Dataset"),
-        Path("datasets/crops-disease-dataset/Final_Dataset"),
-        Path("dataset/CropsDisease/Final_Dataset"),
-        Path("dataset/crops-disease-dataset/Final_Dataset"),
-        Path("datasets/CropsDisease"),
-        Path("datasets/crops-disease-dataset"),
-        Path("dataset/CropsDisease"),
-        Path("dataset/crops-disease-dataset"),
-    ])
+# ==========================================
+# CREATE MODELS FOLDER
+# ==========================================
+os.makedirs("models", exist_ok=True)
 
-    if Path("datasets/crops_disease.zip").exists():
-        try:
-            print("Extracting datasets/crops_disease.zip...")
-            with zipfile.ZipFile("datasets/crops_disease.zip", "r") as zip_ref:
-                zip_ref.extractall("datasets/")
-            print("Extraction complete.")
-        except Exception as e:
-            print("Failed to extract zip:", e)
+# ==========================================
+# IMAGE AUGMENTATION
+# ==========================================
+train_datagen = ImageDataGenerator(
+    rescale=1./255,
+    rotation_range=30,
+    width_shift_range=0.2,
+    height_shift_range=0.2,
+    zoom_range=0.2,
+    shear_range=0.2,
+    horizontal_flip=True,
+    brightness_range=[0.7, 1.3],
+    fill_mode='nearest'
+)
 
-    if Path("datasets/crops-disease.zip").exists():
-        try:
-            print("Extracting datasets/crops-disease.zip...")
-            with zipfile.ZipFile("datasets/crops-disease.zip", "r") as zip_ref:
-                zip_ref.extractall("datasets/")
-            print("Extraction complete.")
-        except Exception as e:
-            print("Failed to extract zip:", e)
+val_datagen = ImageDataGenerator(
+    rescale=1./255
+)
 
-    for base_path in candidates:
-        if not base_path.exists():
-            continue
+test_datagen = ImageDataGenerator(
+    rescale=1./255
+)
 
-        if base_path.is_dir() and any(base_path.iterdir()):
-            print("Using dataset directory:", base_path)
-            return base_path
+# ==========================================
+# LOAD DATASETS
+# ==========================================
+train_generator = train_datagen.flow_from_directory(
+    TRAIN_DIR,
+    target_size=IMG_SIZE,
+    batch_size=BATCH_SIZE,
+    class_mode='sparse'
+)
 
-    print("No crop disease dataset found in expected locations.")
-    print("Searched paths:")
-    for p in candidates:
-        print(" -", p)
-    return None
+val_generator = val_datagen.flow_from_directory(
+    VAL_DIR,
+    target_size=IMG_SIZE,
+    batch_size=BATCH_SIZE,
+    class_mode='sparse'
+)
 
-def create_data_generators(dataset_dir, batch_size=BATCH_SIZE):
-    datagen = ImageDataGenerator(
-        rescale=1./255,
-        rotation_range=15,
-        width_shift_range=0.1,
-        height_shift_range=0.1,
-        horizontal_flip=True,
-        validation_split=0.2
-    )
-    
-    train_gen = datagen.flow_from_directory(
-        dataset_dir,
-        target_size=IMG_SIZE,
-        batch_size=batch_size,
-        class_mode="sparse",
-        subset="training"
-    )
-    
-    val_gen = datagen.flow_from_directory(
-        dataset_dir,
-        target_size=IMG_SIZE,
-        batch_size=batch_size,
-        class_mode="sparse",
-        subset="validation"
-    )
-    
-    class_names = list(train_gen.class_indices.keys())
-    print("Dataset:", train_gen.samples, "train,", val_gen.samples, "val,", len(class_names), "classes")
-    return train_gen, val_gen, class_names
+test_generator = test_datagen.flow_from_directory(
+    TEST_DIR,
+    target_size=IMG_SIZE,
+    batch_size=BATCH_SIZE,
+    class_mode='sparse',
+    shuffle=False
+)
 
-def build_model(num_classes, weights=None):
-    base_model = keras.applications.ResNet50(
-        input_shape=(224, 224, 3),
-        include_top=False,
-        weights=weights
-    )
-    base_model.trainable = False
-    
-    model = models.Sequential([
-        base_model,
-        layers.GlobalAveragePooling2D(),
-        layers.Dense(num_classes, activation="softmax")
-    ])
-    
-    model.compile(
-        optimizer="adam",
-        loss="sparse_categorical_crossentropy",
-        metrics=["accuracy"]
-    )
-    return model
+# ==========================================
+# CLASS NAMES
+# ==========================================
+class_names = list(train_generator.class_indices.keys())
 
-def main():
-    parser = argparse.ArgumentParser(description='Train a crop disease classification model.')
-    parser.add_argument('--dataset', default=None, help='Root dataset path to the extracted crop disease dataset')
-    parser.add_argument('--epochs', type=int, default=EPOCHS, help='Number of training epochs')
-    parser.add_argument('--batch-size', type=int, default=BATCH_SIZE, help='Training batch size')
-    parser.add_argument('--steps-per-epoch', type=int, default=None, help='Override steps per epoch for faster training')
-    parser.add_argument('--validation-steps', type=int, default=None, help='Override validation steps for faster training')
-    parser.add_argument('--imagenet', action='store_true', help='Use ImageNet pretrained weights for ResNet50')
-    args = parser.parse_args()
+print("\n========== DETECTED CLASSES ==========\n")
 
-    dataset_dir = get_dataset_dir(args.dataset)
-    if not dataset_dir:
-        print("Dataset preparation failed. Provide a valid crop disease dataset path or extract datasets/crops_disease.zip or datasets/crops-disease.zip")
-        return
+for cls in class_names:
+    print(cls)
 
-    train_gen, val_gen, class_names = create_data_generators(dataset_dir, batch_size=args.batch_size)
-    weights = 'imagenet' if args.imagenet else None
-    if args.imagenet:
-        print('Using ImageNet pretrained weights for ResNet50.')
-    else:
-        print('Training from scratch with random initialization.')
-    model = build_model(len(class_names), weights=weights)
+print("\n======================================")
 
-    steps_per_epoch = args.steps_per_epoch if args.steps_per_epoch is not None else max(1, train_gen.samples // args.batch_size)
-    validation_steps = args.validation_steps if args.validation_steps is not None else max(1, val_gen.samples // args.batch_size)
+# ==========================================
+# PRETRAINED MOBILENETV2
+# ==========================================
+base_model = tf.keras.applications.MobileNetV2(
+    input_shape=(224, 224, 3),
+    include_top=False,
+    weights='imagenet'
+)
 
-    history = model.fit(
-        train_gen,
-        steps_per_epoch=steps_per_epoch,
-        validation_data=val_gen,
-        validation_steps=validation_steps,
-        epochs=args.epochs,
-        verbose=1
+# ==========================================
+# UNFREEZE MODEL
+# ==========================================
+base_model.trainable = True
+
+# Freeze first layers only
+for layer in base_model.layers[:100]:
+    layer.trainable = False
+
+# ==========================================
+# BUILD FINAL MODEL
+# ==========================================
+model = keras.Sequential([
+
+    base_model,
+
+    layers.GlobalAveragePooling2D(),
+
+    layers.Dropout(0.4),
+
+    layers.Dense(
+        256,
+        activation='relu'
+    ),
+
+    layers.Dropout(0.3),
+
+    layers.Dense(
+        len(class_names),
+        activation='softmax'
     )
 
-    os.makedirs("models", exist_ok=True)
-    model.save(MODEL_SAVE_PATH)
+])
 
-    mapping = {str(i): class_names[i] for i in range(len(class_names))}
-    with open(CLASS_MAPPING_PATH, "w") as f:
-        json.dump(mapping, f)
+# ==========================================
+# COMPILE MODEL
+# ==========================================
+model.compile(
+    optimizer=keras.optimizers.Adam(
+        learning_rate=0.0001
+    ),
+    loss='sparse_categorical_crossentropy',
+    metrics=['accuracy']
+)
 
-    print("Model saved to:", MODEL_SAVE_PATH)
-    print("Class mapping saved to:", CLASS_MAPPING_PATH)
-    print("Test with: python -c 'from model_stub import process_image; print(process_image(\"static/test_img.jpg\"))'")
+# ==========================================
+# MODEL SUMMARY
+# ==========================================
+model.summary()
 
-if __name__ == "__main__":
-    main()
+# ==========================================
+# CALLBACKS
+# ==========================================
+callbacks = [
 
+    keras.callbacks.EarlyStopping(
+        patience=5,
+        restore_best_weights=True
+    ),
+
+    keras.callbacks.ReduceLROnPlateau(
+        patience=3,
+        factor=0.2
+    ),
+
+    keras.callbacks.ModelCheckpoint(
+        MODEL_PATH,
+        save_best_only=True
+    )
+
+]
+
+# ==========================================
+# CLASS WEIGHTS
+# Helps reduce cotton bias
+# ==========================================
+class_weights = {}
+
+for i in range(len(class_names)):
+    class_weights[i] = 1.0
+
+# ==========================================
+# TRAIN MODEL
+# ==========================================
+print("\n========== TRAINING STARTED ==========\n")
+
+history = model.fit(
+    train_generator,
+    validation_data=val_generator,
+    epochs=EPOCHS,
+    callbacks=callbacks,
+    class_weight=class_weights,
+    verbose=1
+)
+
+# ==========================================
+# EVALUATE MODEL
+# ==========================================
+print("\n========== EVALUATING MODEL ==========\n")
+
+test_loss, test_accuracy = model.evaluate(
+    test_generator
+)
+
+print(f"\nTest Accuracy: {test_accuracy:.4f}")
+
+# ==========================================
+# SAVE MODEL
+# ==========================================
+model.save(MODEL_PATH)
+
+print(f"\nModel saved at:")
+print(MODEL_PATH)
+
+# ==========================================
+# SAVE CLASS MAPPING
+# ==========================================
+class_mapping = {}
+
+for class_name, index in train_generator.class_indices.items():
+
+    class_mapping[str(index)] = class_name
+
+with open(
+    CLASS_MAPPING_PATH,
+    "w",
+    encoding="utf-8"
+) as f:
+
+    json.dump(
+        class_mapping,
+        f,
+        indent=4
+    )
+
+print("\n========== CLASS MAPPING ==========\n")
+
+print(json.dumps(
+    class_mapping,
+    indent=4
+))
+
+print("\n===================================")
+
+print("\nTraining Completed Successfully!")

@@ -1,0 +1,27 @@
+plant_type,disease,image_path,soil_moisture,temperature,humidity,weather,wind_speed,rainfall,confidence,treatment,region
+Apple,Apple Scab,Apple Scab Leaf (1).jpg,55,22,65,normal,10,5,95,Apply fungicide - Copper based spray,himachal
+Apple,Fungal Rust,Apple rust leaf (1).jpg,60,25,70,rainy,8,15,88,Apply rust fungicide - Sulfur based,uttarakhand
+Bell Pepper,Bacterial Spot,Bell_pepper leaf spot (1).jpg,50,28,75,humid,6,10,74,Apply copper bactericide,jammu_kashmir
+Blueberry,Leaf Spot,Blueberry leaf (1).jpg,45,20,60,cloudy,12,2,77,Apply fungicide - Neem oil spray,karnataka
+Cherry,Leaf Spot,Cherry leaf (1).jpg,55,22,65,normal,8,5,95,Remove infected leaves - Apply fungicide,maharashtra
+Corn,Corn Gray Leaf Spot,Corn Gray leaf spot (1).jpg,40,30,55,sunny,15,0,95,Apply triazole fungicide,punjab
+Corn,Corn Leaf Blight,Corn leaf blight (1).jpg,65,28,80,rainy,6,20,90,Apply chlorothalonil fungicide,bihar
+Corn,Corn Rust,Corn rust leaf (1).jpg,60,26,75,humid,10,12,90,Apply sulfur fungicide regularly,gujarat
+Grape,Black Rot,Grape leaf black rot (1).jpg,55,25,70,rainy,8,15,85,Apply protectant fungicide,maharashtra
+Grape,Esca,Grape leaf (1).jpg,50,28,65,normal,12,5,80,Remove infected vines - Pruning,tamil_nadu
+Peach,Bacterial Spot,Peach leaf (1).jpg,45,24,60,cloudy,10,8,82,Apply copper spray - Remove infected parts,haryana
+Potato,Early Blight,Potato leaf early blight (1).jpg,60,22,70,rainy,6,18,88,Apply chlorothalonil fungicide,uttar_pradesh
+Potato,Late Blight,Potato leaf late blight (1).jpg,70,18,85,rainy,5,25,92,Apply metalaxyl fungicide immediately,meghalaya
+Raspberry,Leaf Spot,Raspberry leaf (1).jpg,50,20,65,normal,10,5,78,Apply sulfur fungicide,himachal
+Soybean,Leaf Spot,Soybean leaf (1).jpg,45,28,60,sunny,14,0,75,Apply foliar fungicide,madhya_pradesh
+Squash,Powdery Mildew,Squash leaf powdery mildew (1).jpg,35,30,40,dry,18,0,90,Apply milk spray or sulfur,punjab
+Strawberry,Leaf Spot,Strawberry leaf (1).jpg,55,20,72,cloudy,8,8,85,Apply fungicide - Avoid overhead watering,maharashtra
+Tomato,Bacterial Spot,Tomato leaf bacterial spot (1).jpg,60,28,78,rainy,6,15,86,Apply copper bactericide,andra_pradesh
+Tomato,Early Blight,Tomato leaf early blight (1).jpg,55,26,70,humid,10,10,92,Apply chlorothalonil fungicide,karnataka
+Tomato,Healthy,Tomato leaf (1).jpg,50,25,65,normal,12,5,95,Continue regular care - Monitor weekly,telangana
+Tomato,Leaf Mold,Tomato leaf mold (1).jpg,65,30,82,humid,5,12,80,Improve ventilation - Apply fungicide,tamil_nadu
+Tomato,Septoria Leaf Spot,Tomato leaf septoria (1).jpg,58,24,75,rainy,8,15,88,Remove infected leaves - Apply fungicide,gujarat
+Tomato,Spider Mites,Tomato leaf spider mites (1).jpg,30,32,35,dry,16,0,72,Apply neem oil or insecticidal soap,karnataka
+Tomato,Target Spot,Tomato leaf target spot (1).jpg,55,27,68,cloudy,10,6,78,Apply broad-spectrum fungicide,maharashtra
+Tomato,Tomato Yellow Leaf Curl Virus,Tomato leaf yellow curl virus (1).jpg,45,30,50,sunny,14,0,85,Control whiteflies - Remove infected plants,andra_pradesh
+Tomato,Tomato Mosaic Virus,Tomato leaf mosaic virus (1).jpg,50,24,60,normal,12,5,90,Disinfect tools - Remove infected plants,telangana
