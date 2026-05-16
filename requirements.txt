@@ -1,10 +1,9 @@
-Flask == 3.1.3
-gunicorn == 26.0.0
-Werkzeug == 3.1.8
-Jinja2 == 3.1.6
-numpy == 1.26.4
-OpenCV-python-headless == 4.13.0.92
-gTTS == 2.5.4
-tensorflow == 2.16.1
-pillow == 10.3.0
-scikit-learn == 1.4.2
+Flask==3.1.3
+gunicorn==26.0.0
+Werkzeug==3.1.8
+Jinja2==3.1.6
+numpy==2.2.6
+OpenCV-python-headless==4.13.0.92
+gTTS==2.5.4
+scikit-learn==1.4.2
+pillow==10.3.0
