@@ -4,3 +4,6 @@ pillow
 tensorflow
 scikit-learn
 numpy
+flask
+tensorflow
+gunicorn
