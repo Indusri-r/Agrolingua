@@ -1,3 +1,5 @@
+DEMO LINK:
+https://agrolingua-production.up.railway.app/
 # Agrolinga
 
 AI multilingual farming assistant supporting image analysis, sensor data, and
